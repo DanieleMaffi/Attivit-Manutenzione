@@ -83,16 +83,18 @@ exports.login = async (req, res) => {
                     queryPromise("SELECT * FROM tb_reparti"),
                     queryPromise("SELECT * FROM tb_impianti"),
                     queryPromise("SELECT * FROM tb_zone"),
-                    queryPromise("SELECT * FROM tb_posizioni")
+                    queryPromise("SELECT * FROM tb_posizioni"),
+                    queryPromise("SELECT * FROM tb_OdL WHERE ID_Richiedente = " + results.recordset[0].ID)
                 ];
 
                 Promise.all(queries)
-                    .then(([stabilimenti, reparti, impianti, zone, posizioni]) => {
+                    .then(([stabilimenti, reparti, impianti, zone, posizioni, odl]) => {
                         console.log(stabilimenti.recordset);
                         console.log(reparti.recordset);
                         console.log(impianti.recordset);
                         console.log(zone.recordset);
                         console.log(posizioni.recordset);
+                        console.log(odl.recordset);
 
                         res.status(200).render(oneStepBack + "views/main", {    //All the variables are sent through a structure
                             user: results.recordset[0].Nome + " " + results.recordset[0].Cognome, 
@@ -101,7 +103,8 @@ exports.login = async (req, res) => {
                             reparti: reparti.recordset,
                             impianti: impianti.recordset,
                             zone: zone.recordset,
-                            posizioni: posizioni.recordset
+                            posizioni: posizioni.recordset,
+                            odl: odl.recordset
                         });
                     })
             }

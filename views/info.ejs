@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Info</title>
+</head>
+
+<body>
+    <div class="container-fluid" style="width: 70%; margin-top: 45px;">
+        <section>
+            <div class="row">
+                <div class="col-12 mt-3 mb-1">
+                    <h2 style="text-align: center;">Informazioni sull'ordine <%=results[0].ID%></h2>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="fa-solid fa-calendar-days fa-3x me-4" style="color: #2acb78;"></i>  
+                                    </div>
+                                    <div>
+                                        <h4>Richiesta</h4>
+                                        <p class="mb-0">Data della richiesta</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0"><%=results[0].TimestampInserimento%></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="fa-regular fa-pen-to-square text-warning fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Modifica</h4>
+                                        <p class="mb-0">Ultima modifica apportata</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0"><%=results[0].TimestampModifica%>></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="fa fa-pencil text-info fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Inizio lavori</h4>
+                                        <p class="mb-0">Data di inizio dei lavori</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0"><%=results[0].TimestampInizioLavori%></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="far fa-comment-alt text-warning fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Fine lavori</h4>
+                                        <p class="mb-0">Data della fine dei lavori</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0"><%=results[0].TimestampFineLavori%></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <h2 class="h1 mb-0 me-4">$76,456.00</h2>
+                                    </div>
+                                    <div>
+                                        <h4>Total Sales</h4>
+                                        <p class="mb-0">Monthly Sales Amount</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="far fa-heart text-danger fa-3x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <h2 class="h1 mb-0 me-4">$36,000.00</h2>
+                                    </div>
+                                    <div>
+                                        <h4>Total Cost</h4>
+                                        <p class="mb-0">Monthly Cost</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-wallet text-success fa-3x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="fa fa-pencil text-info fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Total Posts</h4>
+                                        <p class="mb-0">Monthly blog posts</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0">18,000</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="far fa-comment-alt text-warning fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Total Comments</h4>
+                                        <p class="mb-0">Monthly blog posts</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0">84,695</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <h2 class="h1 mb-0 me-4">$76,456.00</h2>
+                                    </div>
+                                    <div>
+                                        <h4>Total Sales</h4>
+                                        <p class="mb-0">Monthly Sales Amount</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="far fa-heart text-danger fa-3x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <h2 class="h1 mb-0 me-4">$36,000.00</h2>
+                                    </div>
+                                    <div>
+                                        <h4>Total Cost</h4>
+                                        <p class="mb-0">Monthly Cost</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-wallet text-success fa-3x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="fa fa-pencil text-info fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Total Posts</h4>
+                                        <p class="mb-0">Monthly blog posts</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0">18,000</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between p-md-1">
+                                <div class="d-flex flex-row">
+                                    <div class="align-self-center">
+                                        <i class="far fa-comment-alt text-warning fa-3x me-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4>Total Comments</h4>
+                                        <p class="mb-0">Monthly blog posts</p>
+                                    </div>
+                                </div>
+                                <div class="align-self-center">
+                                    <h2 class="h1 mb-0">84,695</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://kit.fontawesome.com/07b1174abb.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
