@@ -89,7 +89,6 @@ exports.login = async (req, res) => {
 
                 Promise.all(queries)
                     .then(([stabilimenti, reparti, impianti, zone, posizioni, odl]) => {
-                        console.log("View: " + odl.recordset[0].InizioLavori);
 
                         res.status(200).render(oneStepBack + "views/main", {    //All the variables are sent through a structure
                             user: results.recordset[0].Nome + " " + results.recordset[0].Cognome, 
