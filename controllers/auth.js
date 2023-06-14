@@ -84,17 +84,12 @@ exports.login = async (req, res) => {
                     queryPromise("SELECT * FROM tb_impianti"),
                     queryPromise("SELECT * FROM tb_zone"),
                     queryPromise("SELECT * FROM tb_posizioni"),
-                    queryPromise("SELECT * FROM tb_OdL WHERE ID_Richiedente = " + results.recordset[0].ID)
+                    queryPromise("SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + results.recordset[0].ID)
                 ];
 
                 Promise.all(queries)
                     .then(([stabilimenti, reparti, impianti, zone, posizioni, odl]) => {
-                        console.log(stabilimenti.recordset);
-                        console.log(reparti.recordset);
-                        console.log(impianti.recordset);
-                        console.log(zone.recordset);
-                        console.log(posizioni.recordset);
-                        console.log(odl.recordset);
+                        console.log("View: " + odl.recordset[0].InizioLavori);
 
                         res.status(200).render(oneStepBack + "views/main", {    //All the variables are sent through a structure
                             user: results.recordset[0].Nome + " " + results.recordset[0].Cognome, 

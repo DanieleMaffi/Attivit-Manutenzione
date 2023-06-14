@@ -5,11 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="../style.css">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
     <title>Form</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 1mm ridge rgba(116, 116, 116, 0.6);">
@@ -42,7 +39,10 @@
     <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
         <div class="card mx-auto" style="width: 40rem;">
             <div class="card-body">
-                <h3>Ordini pendenti</h3>
+                <div class="container-fluid">
+                    <h3>Ordini pendenti</h3>
+                    <a href="#" id="reloadBtn" class="idLink">Aggiorna</a>
+                </div>
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -55,40 +55,51 @@
                         <% for(let i=0; i < odl.length; i++) { %>
                             <tr>
                                 <th scope="row">
-                                    <a class="link-body-emphasis" href="/odlInfo/<%=odl[i].ID%>"><%=odl[i].ID%></a>
+                                    <a class="link-body-emphasis idLink" href="/odlInfo/<%=odl[i].ID%>">
+                                        <%=odl[i].ID%>
+                                    </a>
                                 </th>
                                 <td>
                                     <%=odl[i].DescrizioneLavori%>
                                 </td>
                                 <td>
-                                    <% if (odl[i].Stato == 0) { %>
+                                    <% if (odl[i].Stato==0) { %>
                                         Sconosciuto
-                                    <% } else if (odl[i].Stato == 10) { %>
-                                        Ricevuto
-                                    <% } else if (odl[i].Stato == 20) { %>
-                                        In attesa di delibera
-                                    <% } else if (odl[i].Stato == 30) { %>
-                                        Approvato
-                                    <% } else if (odl[i].Stato == 40) { %>
-                                        In attesa di materiali
-                                    <% } else if (odl[i].Stato == 50) { %>
-                                        Programmato
-                                    <% } else if (odl[i].Stato == 60) { %>
-                                        In corso...
-                                    <% } else if (odl[i].Stato == 90) { %>
-                                        Concluso
-                                    <% } else { %>
-                                        Annullato
-                                    <% } %>
+                                        <% } else if (odl[i].Stato==10) { %>
+                                            Ricevuto
+                                            <% } else if (odl[i].Stato==20) { %>
+                                                In attesa di delibera
+                                                <% } else if (odl[i].Stato==30) { %>
+                                                    Approvato
+                                                    <% } else if (odl[i].Stato==40) { %>
+                                                        In attesa di materiali
+                                                        <% } else if (odl[i].Stato==50) { %>
+                                                            Programmato
+                                                            <% } else if (odl[i].Stato==60) { %>
+                                                                In corso...
+                                                                <% } else if (odl[i].Stato==90) { %>
+                                                                    Concluso
+                                                                    <% } else { %>
+                                                                        Annullato
+                                                                        <% } %>
                                 </td>
                             </tr>
-                        <% } %>
+                            <% } %>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
+    <p class="newOrder center-con">Nuovo ordine</p>
+    <div class="center-con">
+        <div class="round">
+            <span class="drawSpace"></span>
+            <span class="drawSpace"></span>
+            <span class="drawSpace"></span>
+            <span class="drawSpace"></span>
+        </div>
+    </div>
+    <div class="container my-5" style="display: flex; height: calc(100vh - 100px); align-items: center;">
         <div class="card mx-auto" style="width: 40rem;">
             <div class="card-body">
                 <form action="/upload/sendForm" method="POST" id="usrform">
@@ -252,6 +263,23 @@
             posizione.appendChild(option)
         }
             <% } %>
+        })
+
+        //The function scrolls down the page
+        let scrollDown = () => {
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        let elements = document.getElementsByClassName("center-con")
+
+        //When an element with this class is clicked, the function is called
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('click', scrollDown, false);
+        }
+
+        //Reloads the page when btn is pressed
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+            location.reload();
         })
     </script>
 </body>

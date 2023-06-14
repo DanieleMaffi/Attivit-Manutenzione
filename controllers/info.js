@@ -22,7 +22,9 @@ exports.getInfo = async (req, res) => {
 
         let request = new sql.Request();
 
-        let query = `SELECT * FROM tb_OdL WHERE ID = ${req.params.id}`
+        let query = `SELECT * FROM vw_OdL_WEB WHERE ID = ${req.params.id}`
+
+        console.log(query)
 
         await request.query(query, function (err, results) {
             console.log(results, err)
