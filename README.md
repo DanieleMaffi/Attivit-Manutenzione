@@ -6,4 +6,5 @@
 - [x] Json session token
 - [x] Refresh button
 - [x] Access all info through token 
-- [ ] Change Password feature
+- [x] Change Password feature
+- [ ] Email from server side to change password

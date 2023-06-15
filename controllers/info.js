@@ -30,7 +30,10 @@ exports.getInfo = async (req, res) => {
 
         await request.query(query, function (err, results) {
             console.log(results, err)
-            res.render("info", { root: './views/', results: results.recordset, user: decodedToken['name']})
+            if (results.recordset[0]?.Richiedente == decodedToken['id']) 
+                res.render("info", { root: './views/', results: results.recordset, user: decodedToken['name']})
+            else
+                res.send("Non hai accesso a questo ordine")
         })
     } catch (err) {console.log(err)}
 }
