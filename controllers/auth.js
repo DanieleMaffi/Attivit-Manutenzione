@@ -24,6 +24,7 @@ var config = {
         trustServerCertificate: false
     }
 };
+
 //This function is called from the /auth/login post request and handles the login process
 exports.login = async (req, res) => {
     try {
@@ -79,6 +80,7 @@ exports.login = async (req, res) => {
     } catch (err) { }
 }
 
+//Check id the token is still valid
 exports.isLoggedIn = async (req, res, next) => {
     if (req.cookies['token']) {
         try {
@@ -101,6 +103,7 @@ exports.logout = (req, res) => {
     res.redirect('/');
 }
 
+//If both given passwords are equal then it updates the password in the database
 exports.changePassword = async (req, res) => {
     // connect to your database
     await sql.connect(config)
@@ -129,6 +132,7 @@ exports.changePassword = async (req, res) => {
     });
 }
 
+//Checks if a user with the given email exists and if it does, returns a message and sends an email
 exports.forgotPassword = async (req, res) => {
     // connect to your database
     await sql.connect(config)
