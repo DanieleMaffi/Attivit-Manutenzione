@@ -65,49 +65,12 @@ exports.login = async (req, res) => {
                 console.log("Logged in");
 
                 console.log('Genereating token...');
-                let payload = { username: results.recordset[0]?.ID}
+                let payload = { id: results.recordset[0]?.ID, name: results.recordset[0]?.Nome + ' ' + results.recordset[0]?.Cognome}
                 let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
                 console.log('Token:' + token);
 
-                let stabilimenti, reparti, impianti, posizioni = null
-
-                function queryPromise(queryString) {
-                    return new Promise((resolve, reject) => {
-                        request.query(queryString, function (err, data) {
-                            if (err) {
-                                reject(err);
-                            } else {
-                                resolve(data);
-                            }
-                        });
-                    });
-                }
-
-                //Queries all the info to send to the main.ejs page
-                const queries = [
-                    queryPromise("SELECT * FROM tb_stabilimenti"),
-                    queryPromise("SELECT * FROM tb_reparti"),
-                    queryPromise("SELECT * FROM tb_impianti"),
-                    queryPromise("SELECT * FROM tb_zone"),
-                    queryPromise("SELECT * FROM tb_posizioni"),
-                    queryPromise("SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + results.recordset[0].ID)
-                ];
-
-                Promise.all(queries)
-                    .then(([stabilimenti, reparti, impianti, zone, posizioni, odl]) => {
-
-                        res.status(200).render(oneStepBack + "views/main", {    //All the variables are sent through a structure
-                            user: results.recordset[0].Nome + " " + results.recordset[0].Cognome,
-                            id: results.recordset[0].ID,
-                            stabilimenti: stabilimenti.recordset,
-                            reparti: reparti.recordset,
-                            impianti: impianti.recordset,
-                            zone: zone.recordset,
-                            posizioni: posizioni.recordset,
-                            odl: odl.recordset,
-                            jwttoken: token
-                        });
-                    })
+                res.cookie('token', token, { path: '/' })
+                res.status(201).redirect('/home');
             }
         });
     } catch (err) { }
