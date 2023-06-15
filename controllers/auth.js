@@ -46,7 +46,7 @@ exports.login = async (req, res) => {
         // create Request object
         var request = new sql.Request();
 
-        password = await crypto.createHash('md5').update(password).digest('hex').toUpperCase();
+        password = await crypto.createHash('md5').update(password).digest('hex').toUpperCase()
 
         // query to the database and get the records
         await request.query("SELECT * FROM tb_risorse WHERE Email = '" + email + "' AND Password = '" + password + "'", function (err, results) {
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
 
             let dbPassword = results.recordset[0]?.Password;    //? is an optional chaining operator that checks if th value exists in the recordset before acceesing it
 
-            if (!results || !(password === dbPassword)) {   //Check if the password is correct
+            if (results.recordset.length == 0 || !(password === dbPassword)) {   //Check if the password is correct
 
                 return res.status(401).render(oneStepBack + 'views/login', {
                     message: 'Email o password non corretti'
@@ -65,7 +65,10 @@ exports.login = async (req, res) => {
                 console.log("Logged in");
 
                 console.log('Genereating token...');
-                let payload = { id: results.recordset[0]?.ID, name: results.recordset[0]?.Nome + ' ' + results.recordset[0]?.Cognome}
+                let payload = { 
+                    id: results.recordset[0]?.ID, 
+                    name: results.recordset[0]?.Nome + ' ' + results.recordset[0]?.Cognome
+                }
                 let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
                 console.log('Token:' + token);
 
@@ -80,7 +83,7 @@ exports.isLoggedIn = async (req, res, next) => {
     if (req.cookies['token']) {
         try {
             //Verifying the token
-            const decoded = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET);
+            let decoded = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET);
             console.log(decoded);
         } catch (err) {
             console.log(err)
@@ -96,4 +99,84 @@ exports.logout = (req, res) => {
     res.clearCookie('token');
     console.log('Logged out')
     res.redirect('/');
+}
+
+exports.changePassword = async (req, res) => {
+    // connect to your database
+    await sql.connect(config)
+
+    // create Request object
+    var request = new sql.Request();
+
+    let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+    let firstPassword = req.body.firstPassword;
+    let secondPassword = req.body.secondPassword;
+
+    if (firstPassword !== secondPassword) {
+        return res.status(400).render('passwordForm', {
+            message: 'Le password devono coincidere',
+            user: decodedToken['name']
+        })
+    }
+
+    let encodedPsw = await crypto.createHash('md5').update(firstPassword).digest('hex').toUpperCase()
+
+    let query = "UPDATE tb_risorse SET Password = '" + encodedPsw + "' WHERE ID = " + decodedToken['id']
+
+    await request.query(query, function (err, results) {
+        if (err) console.log(err)
+        res.status(201).redirect('/home');
+    });
+}
+
+exports.forgotPassword = async (req, res) => {
+    // connect to your database
+    await sql.connect(config)
+
+    // create Request object
+    var request = new sql.Request();
+
+    let email = req.body.email;
+
+    //Check id the email exists
+    let query = "SELECT * FROM tb_risorse WHERE Email = '" + email + "'";
+
+    await request.query(query, function (err, results) {
+        if (err) console.log(err)
+        if (results.recordset.length == 0) {
+            return res.status(404).render('emailForm', {
+                message: 'Non esiste un account associato a questo indirizzo'
+            })
+        } 
+
+        res.send(
+            `<!doctype html>
+            <html lang="en" data-bs-theme="light">
+            
+            <head>
+                <!-- Required meta tags -->
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+                <!-- Bootstrap CSS -->
+                <link rel="stylesheet" href="/style.css">
+            
+                <title>Response</title>
+            </head>
+            <body>
+                <div style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column;">
+                    <h1 class="display-4 row">Controlla la tua casella di posta per reimpostare la password</h1>
+                </div>
+            </html>`
+        );
+    })
+
+    
+
+    //let query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES ('" + decodedToken['id'] + "')";
+
+    /*await request.query(query, function (err, results) {
+        if (err) console.log(err)
+    })*/
+    
 }

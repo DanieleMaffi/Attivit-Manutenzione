@@ -2,6 +2,8 @@ const sql = require("mssql");
 const { promisify } = require("util");
 const path = require("path")
 const ejs = require('ejs')
+const jwt = require('jsonwebtoken');
+let cookieParser = require('cookie-parser');
 
 let results = null
 
@@ -22,11 +24,13 @@ exports.getInfo = async (req, res) => {
 
         let request = new sql.Request();
 
+        let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+
         let query = `SELECT * FROM vw_OdL_WEB WHERE ID = ${req.params.id}`
 
         await request.query(query, function (err, results) {
             console.log(results, err)
-            res.render("info", { root: './views/', results: results.recordset})
+            res.render("info", { root: './views/', results: results.recordset, user: decodedToken['name']})
         })
     } catch (err) {console.log(err)}
 }
