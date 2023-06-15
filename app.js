@@ -4,6 +4,7 @@ const sql = require("mssql");
 const app = express();
 const dotenv = require("dotenv").config();
 const cookieParser = require("cookie-parser");
+const jwt = require('jsonwebtoken');
 
 app.use(express.static("views"));
 app.use(express.urlencoded({ extended: false }))
@@ -14,10 +15,10 @@ app.set('view engine', 'ejs');
 //Configuration file for the server
 
 var config = {
-    user: 'manutenzione',
-    password: 'manutenzione',
-    server: '192.168.1.61',
-    database: 'attivitàmanutenzione',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB,
     options: {
         encrypt: false,
         trustServerCertificate: false

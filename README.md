@@ -1,7 +1,8 @@
 # Attività Manutenzione
 
 ### TO DO
-- [x] scroll down arrow
+- [x] Scroll down arrow
 - [x] Info page
-- [ ] json session token
+- [x] Json session token
 - [x] Refresh button
+- [ ] Change Password feature

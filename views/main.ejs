@@ -24,6 +24,7 @@
         <p style="height: fit-content; margin: 0; margin-right: 20px; color: #e5e5e5;" class="navbar-text">
             <%= user %>
         </p>
+        <a  class="idLink" href="/auth/logout">Log out</a>
     </div>
 </nav>
 
@@ -95,8 +96,6 @@
         <div class="card mx-auto" style="width: 40rem;">
             <div class="card-body">
                 <form action="/upload/sendForm" method="POST" id="usrform">
-                    <input type="number" value="<%=id%>" style="position: absolute; display: none;" name="richiedente"
-                        readonly>
                     <h4 class="mb-4">Inserire i dati</h4>
                     <div class="mb-4">
                         <label for="stabilimento" class="form-label">Stabilimento</label>
@@ -263,6 +262,9 @@
         document.getElementById('reloadBtn').addEventListener('click', () => {
             location.reload();
         })
+
+        //Save the token locally as a cookie
+        document.cookie = "token=<%= jwttoken %>; path=/"
     </script>
 </body>
 <!--

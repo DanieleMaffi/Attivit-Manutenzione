@@ -6,15 +6,15 @@ const ejs = require('ejs')
 let results = null
 
 var config = {
-    user: 'manutenzione',
-    password: 'manutenzione',
-    server: '192.168.1.61',
-    database: 'attivitàmanutenzione',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB,
     options: {
         encrypt: false,
         trustServerCertificate: false
     }
-}
+};
 
 exports.getInfo = async (req, res) => {
     try {
@@ -23,8 +23,6 @@ exports.getInfo = async (req, res) => {
         let request = new sql.Request();
 
         let query = `SELECT * FROM vw_OdL_WEB WHERE ID = ${req.params.id}`
-
-        console.log(query)
 
         await request.query(query, function (err, results) {
             console.log(results, err)
