@@ -134,13 +134,12 @@ exports.changePassword = async (req, res) => {
 
 //Checks if a user with the given email exists and if it does, returns a message and sends an email
 exports.forgotPassword = async (req, res) => {
-    // connect to your database
     await sql.connect(config)
 
-    // create Request object
     var request = new sql.Request();
 
     let email = req.body.email;
+    let id = null
 
     //Check id the email exists
     let query = "SELECT * FROM tb_risorse WHERE Email = '" + email + "'";
@@ -151,36 +150,33 @@ exports.forgotPassword = async (req, res) => {
             return res.status(404).render('emailForm', {
                 message: 'Non esiste un account associato a questo indirizzo'
             })
-        } 
+        } else {
+            id = results.recordset[0]?.ID
+            query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES (" + id + ")";
 
-        res.send(
-            `<!doctype html>
-            <html lang="en" data-bs-theme="light">
-            
-            <head>
-                <!-- Required meta tags -->
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-            
-                <!-- Bootstrap CSS -->
-                <link rel="stylesheet" href="/style.css">
-            
-                <title>Response</title>
-            </head>
-            <body>
-                <div style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column;">
-                    <h1 class="display-4 row">Controlla la tua casella di posta per reimpostare la password</h1>
-                </div>
-            </html>`
-        );
+            request.query(query, function (err, results) {
+                if (err) console.log(err)
+                res.status(200).send(
+                    `<!doctype html>
+                    <html lang="en" data-bs-theme="light">
+                    
+                    <head>
+                        <!-- Required meta tags -->
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                    
+                        <!-- Bootstrap CSS -->
+                        <link rel="stylesheet" href="/style.css">
+                    
+                        <title>Response</title>
+                    </head>
+                    <body>
+                        <div style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column;">
+                            <h1 class="display-4 row">Controlla la tua casella per visualizzare la nuova password</h1>
+                        </div>
+                    </html>`
+                );
+            })
+        }
     })
-
-    
-
-    //let query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES ('" + decodedToken['id'] + "')";
-
-    /*await request.query(query, function (err, results) {
-        if (err) console.log(err)
-    })*/
-    
 }

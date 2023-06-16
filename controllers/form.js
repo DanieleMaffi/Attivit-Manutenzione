@@ -20,27 +20,22 @@ var config = {
 
 function queryPromise(query) {
     return new Promise((resolve, reject) => {
-        sql.connect(config, (err) => {
+        sql.query(query, (err, result) => {
             if (err) {
                 reject(err);
             } else {
-                sql.query(query, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                resolve(result);
             }
         });
+
     });
 }
 
 exports.loadForm = async (req, res) => {
-    let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+    let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
-     //Queries all the info to send to the main.ejs page
-     const queries = [
+    //Queries all the info to send to the main.ejs page
+    const queries = [
         queryPromise("SELECT * FROM tb_stabilimenti"),
         queryPromise("SELECT * FROM tb_reparti"),
         queryPromise("SELECT * FROM tb_impianti"),
@@ -72,7 +67,7 @@ exports.sendForm = async (req, res) => {
         //fetches the varibales from the form submission
         let posizione = req.body.posizione
         let descrizione = req.body.descrizione
-        let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+        let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
         await sql.connect(config)
 
@@ -82,7 +77,7 @@ exports.sendForm = async (req, res) => {
 
         await request.query(query, function (err, results) {
             console.log(err)
-            res.render('response', {id: results.recordset[0].ID})   //renders response page and outputs id of the database row that has just been input
+            res.render('response', { id: results.recordset[0].ID })   //renders response page and outputs id of the database row that has just been input
         })
-    } catch (err) {console.log(err)}
+    } catch (err) { console.log(err) }
 }

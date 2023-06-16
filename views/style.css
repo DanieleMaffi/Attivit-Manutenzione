@@ -10839,7 +10839,7 @@ textarea.form-control-lg {
 /* ------------------------------ MY STYLE ----------------------------------*/
 
 .idLink {
-    text-decoration: none !important; 
+    text-decoration: none;
 }
 
 .newOrder {
@@ -10919,4 +10919,14 @@ textarea.form-control-lg {
 
 .round:hover span:nth-child(4) {
     transform: rotate(-225deg);
+}
+
+.thing {
+  color: #e5e5e5;
+  transition: 0.5s;
+}
+
+.thing:hover {
+  transform: scale(1.1);
+  color: #ff352b;
 }
