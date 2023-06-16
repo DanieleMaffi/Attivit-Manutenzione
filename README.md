@@ -18,7 +18,7 @@ The user can change the password both when logged in and when logged out, the la
 The login is managed by the **json webtoken** package that beyond being ecnrypted with a secret key, it also contains useful information to send between html pages. The tolen will **expire** in **1h**.
 
 ### The views
-The views are handled by the package **ejs**, which renders html pages or .ejs with strctures appended to them. 
+The views are handled by the package **ejs**, which renders html pages or `.ejs` with strctures appended to them. 
 For example
 ```javascript
 res.status(201).render('myhtmlpage', {
