@@ -10942,6 +10942,10 @@ textarea.form-control-lg {
 .info-paragraph {
   text-align: center;
 }
+
+.navbar-space {
+  padding-top: 50px;
+}
 /* ------------------------------ STYLING FOR OTHER DEVICES ----------------------------------*/
 @media (min-width:320px)  { 
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
@@ -10983,7 +10987,6 @@ textarea.form-control-lg {
   }
 
   .navbar-space {
-    padding-top: 50px;
     width: 100%;
   }
 
