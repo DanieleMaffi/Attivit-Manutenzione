@@ -42,7 +42,7 @@ The design is built using the bootstrap framework and a little bit of simple cus
 - [x] Refresh button
 - [x] Access all info through token 
 - [x] Change Password feature
-- [ ] Email from server side to change password
+- [x] Email from server side to change password
 - [ ] Possibilty to add attachments
 <br> <br> 
 
