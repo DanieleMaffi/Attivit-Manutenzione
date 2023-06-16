@@ -153,12 +153,13 @@
                             class="form-control" name="allegato" cols="40" rows="5">
                         </input>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-1 mb-2">Invia</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary mt-1 mb-2" disabled>Invia</button>
                 </form>
             </div>
         </div>
     </div>
     <script>
+
         //When select stabilimento is changed this function is called
         document.getElementById('stabilimento').addEventListener('change', () => {
             let stabilimento = document.getElementById('stabilimento')
@@ -166,6 +167,8 @@
             let impianto = document.getElementById('impianto')
             let zona = document.getElementById('zona')
             let posizione = document.getElementById('posizione')
+
+            document.getElementById('submitBtn').disabled = true
 
             reparto.options.length = 0 //deletes innerHTML of select
 
@@ -218,6 +221,8 @@
             let posizione = document.getElementById('posizione')
             impianto.options.length = 0 //deletes innerHTML of select
 
+            document.getElementById('submitBtn').disabled = true
+
             let option = document.createElement("option");
             option.value = "none"
             option.text = "Seleziona un impianto"
@@ -258,6 +263,8 @@
             let posizione = document.getElementById('posizione')
             zona.options.length = 0 //deletes innerHTML of select
 
+            document.getElementById('submitBtn').disabled = true
+
             let option = document.createElement("option");
             option.value = "none"
             option.text = "Seleziona una zona"
@@ -289,6 +296,8 @@
             let posizione = document.getElementById('posizione')
             posizione.options.length = 0 //deletes innerHTML of select
 
+            document.getElementById('submitBtn').disabled = true
+
             let option = document.createElement("option");
             option.value = "none"
             option.text = "Seleziona una posizione"
@@ -305,6 +314,10 @@
             posizione.appendChild(option)
         }
             <% } %>
+        })
+
+        document.getElementById('posizione').addEventListener('change', () => {
+            document.getElementById('submitBtn').disabled = false
         })
 
         //The function scrolls down the page
