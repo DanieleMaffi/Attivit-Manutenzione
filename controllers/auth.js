@@ -122,6 +122,13 @@ exports.changePassword = async (req, res) => {
         })
     }
 
+    if (!firstPassword && !secondPassword) { 
+        return res.status(400).render('passwordForm', {
+            message: 'Inserisci una password valida',
+            user: decodedToken['name']
+        })
+    }
+
     let encodedPsw = await crypto.createHash('md5').update(firstPassword).digest('hex').toUpperCase()
 
     let query = "UPDATE tb_risorse SET Password = '" + encodedPsw + "' WHERE ID = " + decodedToken['id']
