@@ -14,16 +14,12 @@
     <div class="container-fluid">
         <img src="/logo.png" style="width: 8%; margin-top: 7px;" class="avatar" alt="user profile picture">
         <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col" href="#">Attività
-            Manutenzione ↑</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            Manutenzione</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
         </div>
-        <p style="height: fit-content; margin: 0; margin-right: 20px; color: #e5e5e5;" class="navbar-text">
+        <p style="height: fit-content; margin: 0; color: #e5e5e5; margin-right: 20px;" class="navbar-text">
             <%= user %>
         </p>
         <a class="idLink nav-link thing" href="/auth/changePassword">Cambia password</a>
@@ -33,7 +29,7 @@
 
 <body>
     <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
-        <div class="card mx-auto" style="width: 40rem;">
+        <div class="card mx-auto card-table" style="width: 40rem;">
             <div class="card-body">
                 <div class="container-fluid">
                     <h3>Ordini pendenti</h3>
@@ -167,6 +163,10 @@
         document.getElementById('stabilimento').addEventListener('change', () => {
             let stabilimento = document.getElementById('stabilimento')
             let reparto = document.getElementById('reparto')
+            let impianto = document.getElementById('impianto')
+            let zona = document.getElementById('zona')
+            let posizione = document.getElementById('posizione')
+
             reparto.options.length = 0 //deletes innerHTML of select
 
             let option = document.createElement("option");
@@ -176,6 +176,30 @@
             option.selected = true
             option.hidden = true
             reparto.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona un impianto"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            impianto.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona una zona"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            zona.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona una posizione"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            posizione.appendChild(option)
 
                 <% for (let i = 0; i < reparti.length; i++) { %>
                 if (<%= reparti[i].ID_Stabilimento %> == stabilimento.value) {
@@ -190,6 +214,8 @@
         document.getElementById('reparto').addEventListener('change', () => {
             let reparto = document.getElementById('reparto')
             let impianto = document.getElementById('impianto')
+            let zona = document.getElementById('zona')
+            let posizione = document.getElementById('posizione')
             impianto.options.length = 0 //deletes innerHTML of select
 
             let option = document.createElement("option");
@@ -199,6 +225,22 @@
             option.selected = true
             option.hidden = true
             impianto.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona una zona"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            zona.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona una posizione"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            posizione.appendChild(option)
 
                 <% for (let i = 0; i < impianti.length; i++) { %>
                 if (<%= impianti[i].ID_Reparto %> == reparto.value) {
@@ -213,6 +255,7 @@
         document.getElementById('impianto').addEventListener('change', () => {
             let impianto = document.getElementById('impianto')
             let zona = document.getElementById('zona')
+            let posizione = document.getElementById('posizione')
             zona.options.length = 0 //deletes innerHTML of select
 
             let option = document.createElement("option");
@@ -222,6 +265,14 @@
             option.selected = true
             option.hidden = true
             zona.appendChild(option)
+
+            option = document.createElement("option");
+            option.value = "none"
+            option.text = "Seleziona una posizione"
+            option.disabled = true
+            option.selected = true
+            option.hidden = true
+            posizione.appendChild(option)
 
                 <% for (let i = 0; i < zone.length; i++) { %>
                 if (<%= zone[i].ID_Impianto %> == impianto.value) {

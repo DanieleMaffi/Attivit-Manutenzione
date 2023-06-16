@@ -10838,6 +10838,10 @@ textarea.form-control-lg {
 
 /* ------------------------------ MY STYLE ----------------------------------*/
 
+.form-card {
+  width: 40rem;
+}
+
 .idLink {
     text-decoration: none;
 }
@@ -10929,4 +10933,83 @@ textarea.form-control-lg {
 .thing:hover {
   transform: scale(1.1);
   color: #ff352b;
+}
+
+.info-text {
+  font-size: 30px;
+}
+
+.info-paragraph {
+  text-align: center;
+}
+/* ------------------------------ STYLING FOR OTHER DEVICES ----------------------------------*/
+@media (min-width:320px)  { 
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
+}
+@media not screen and (min-width:480px) { 
+  /* smartphones, Android phones, landscape iPhone */ 
+  .form-card {
+    width: 98%;
+  }
+
+  .avatar {
+    display: none;
+  }
+
+  .navbar-brand {
+    margin-right: 25px;
+    text-align: center;
+  }
+
+  .navbar-text {
+    margin: 0;
+    display: none;
+  }
+
+  .thing {
+    padding: 0;
+    text-align: center;
+  }
+
+  .center-con {
+    visibility: hidden;
+  }
+
+  .shrink-container {
+    margin: 0;
+  }
+
+  .navbar-space {
+    padding-top: 50px;
+    width: 100%;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  .info-text {
+    font-size: 20px;
+  }
+
+  .info-paragraph {
+    text-align: left;
+  }
+
+  .card-table {
+    margin-top: 80px ;
+  }
+}
+  
+@media (min-width:600px)  { 
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+}
+@media (min-width:801px)  { 
+  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+}
+@media (min-width:1025px) { 
+  /* big landscape tablets, laptops, and desktops */ 
+}
+@media (min-width:1281px) { 
+  /* hi-res laptops and desktops */ 
 }

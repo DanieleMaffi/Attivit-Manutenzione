@@ -9,320 +9,322 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 1mm ridge rgba(116, 116, 116, 0.6);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+        style="border-bottom: 1mm ridge rgba(116, 116, 116, 0.6);">
         <div class="container-fluid">
             <img src="/logo.png" style="width: 8%; margin-top: 7px;" class="avatar" alt="user profile picture">
-            <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col" href="/home">Attività
-                Manutenzione</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col"
+                href="/home">Attività
+                Manutenzione </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
             </div>
-            <p style="height: fit-content; margin: 0; margin-right: 20px; color: #e5e5e5;" class="navbar-text">
+            <p style="height: fit-content; margin: 0; color: #e5e5e5; margin-right: 20px;" class="navbar-text">
                 <%= user %>
             </p>
             <a class="idLink nav-link thing" href="/auth/changePassword">Cambia password</a>
-            <a class="idLink nav-link thing" style="margin-left: 4px; margin-right: 10px;" href="/auth/logout">Log out</a>
+            <a class="idLink nav-link thing" style="margin-left: 4px; margin-right: 10px;" href="/auth/logout">Log
+                out</a>
         </div>
     </nav>
-    <div class="container-fluid" style="width: 70%; margin-top: 45px;">
-        <section>
-            <div class="row">
-                <div class="col-12 mt-3 mb-1">
-                    <h1 style="text-align: center;">Informazioni sull'ordine <%=results[0].ID%>
-                    </h1>
-                    <br>
-                </div>
+    <div class="container-fluid navbar-space " style="width: 70%; margin-top: 45px;">
+        <section <div class="row">
+            <div class="col-12 mt-3 mb-1">
+                <h1 style="text-align: center;">Informazioni sull'ordine <%=results[0].ID%>
+                </h1>
+                <br>
             </div>
-            <div class="row">
-                <div class="col-xl-6 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div class="d-flex flex-row">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Richiesta</h4>
-                                        <p class="mb-0">Data della richiesta</p>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h2 class="h1 mb-0" style="font-size: 30px;">
-                                        <%=results[0].Inserimento%>
-                                    </h2>
-                                </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-6 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h4 style="color: #ff5454;">Richiesta</h4>
+                                <p class="mb-0">Data della richiesta</p>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div class="d-flex flex-row">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Modifica</h4>
-                                        <p class="mb-0">Ultima modifica apportata</p>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h2 class="h1 mb-0" style="font-size: 30px;">
-                                        <%=results[0].Modifica%>
-                                    </h2>
-                                </div>
-                            </div>
+                        <div class="align-self-center">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].Inserimento%>
+                            </h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div class="d-flex flex-row">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Inizio lavori</h4>
-                                        <p class="mb-0">Data di inizio dei lavori</p>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h2 class="h1 mb-0" style="font-size: 30px;">
-                                        <%=results[0].InizioLavori%>
-                                    </h2>
-                                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h4 style="color: #ff5454;">Modifica</h4>
+                                <p class="mb-0">Ultima modifica apportata</p>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div class="d-flex flex-row">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Fine lavori</h4>
-                                        <p class="mb-0">Data della fine dei lavori</p>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h2 class="h1 mb-0" style="font-size: 30px;">
-                                        <%=results[0].FineLavori%>
-                                    </h2>
-                                </div>
-                            </div>
+                        <div class="align-self-center">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].Modifica%>
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-6 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Stato</h4>
-                                    <p class="mb-0">Sato attuale dell'ordine</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <% if (results[0].Stato==0) { %>
-                                                Sconosciuto
-                                                <% } else if (results[0].Stato==10) { %>
-                                                    Ricevuto
-                                                    <% } else if (results[0].Stato==20) { %>
-                                                        In attesa di delibera
-                                                        <% } else if (results[0].Stato==30) { %>
-                                                            Approvato
-                                                            <% } else if (results[0].Stato==40) { %>
-                                                                In attesa di materiali
-                                                                <% } else if (results[0].Stato==50) { %>
-                                                                    Programmato
-                                                                    <% } else if (results[0].Stato==60) { %>
-                                                                        In corso...
-                                                                        <% } else if (results[0].Stato==90) { %>
-                                                                            Concluso
-                                                                            <% } else { %>
-                                                                                Annullato
-                                                                                <% } %>
-                                        </h2>
-                                    </div>
+        </div>
+        <div class="col-xl-6 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h4 style="color: #ff5454;">Inizio lavori</h4>
+                                <p class="mb-0">Data di inizio dei lavori</p>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].InizioLavori%>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h4 style="color: #ff5454;">Fine lavori</h4>
+                                <p class="mb-0">Data della fine dei lavori</p>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].FineLavori%>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-6 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Stato</h4>
+                            <p class="mb-0">Sato attuale dell'ordine</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <% if (results[0].Stato==0) { %>
+                                        Sconosciuto
+                                        <% } else if (results[0].Stato==10) { %>
+                                            Ricevuto
+                                            <% } else if (results[0].Stato==20) { %>
+                                                In attesa di delibera
+                                                <% } else if (results[0].Stato==30) { %>
+                                                    Approvato
+                                                    <% } else if (results[0].Stato==40) { %>
+                                                        In attesa di materiali
+                                                        <% } else if (results[0].Stato==50) { %>
+                                                            Programmato
+                                                            <% } else if (results[0].Stato==60) { %>
+                                                                In corso...
+                                                                <% } else if (results[0].Stato==90) { %>
+                                                                    Concluso
+                                                                    <% } else { %>
+                                                                        Annullato
+                                                                        <% } %>
+                                </h2>
+                            </div>
 
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Tipo</h4>
-                                    <p class="mb-0">Tipologia dell'intevento</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <% if (results[0].Tipo==0) { %>
-                                                Sconosciuto
-                                                <% } else if (results[0].Tipo==10) { %>
-                                                    Man. predittiva
-                                                    <% } else if (results[0].Tipo==20) { %>
-                                                        Man. preventiva
-                                                        <% } else if (results[0].Tipo==30) { %>
-                                                            Man. guasto
-                                                            <% } else if (results[0].Tipo==40) { %>
-                                                                Eff. energia
-                                                                <% } else { %>
-                                                                    Ambiente
-                                                                    <% } %>
-                                        </h2>
-                                    </div>
-                                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Tipo</h4>
+                            <p class="mb-0">Tipologia dell'intevento</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <% if (results[0].Tipo==0) { %>
+                                        Sconosciuto
+                                        <% } else if (results[0].Tipo==10) { %>
+                                            Man. predittiva
+                                            <% } else if (results[0].Tipo==20) { %>
+                                                Man. preventiva
+                                                <% } else if (results[0].Tipo==30) { %>
+                                                    Man. guasto
+                                                    <% } else if (results[0].Tipo==40) { %>
+                                                        Eff. energia
+                                                        <% } else { %>
+                                                            Ambiente
+                                                            <% } %>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Stabilimento</h4>
-                                    <p class="mb-0">Stabilimento dell'intervento</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <%=results[0].Stabilimento%>
-                                        </h2>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Stabilimento</h4>
+                            <p class="mb-0">Stabilimento dell'intervento</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <%=results[0].Stabilimento%>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Reparto</h4>
-                                    <p class="mb-0">Reparto dell'intervento</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <%=results[0].Reparto%>
-                                        </h2>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Reparto</h4>
+                            <p class="mb-0">Reparto dell'intervento</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <%=results[0].Reparto%>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Impianto</h4>
-                                    <p class="mb-0">Impianto dell'ordine</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <%=results[0].Impianto%>
-                                        </h2>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Impianto</h4>
+                            <p class="mb-0">Impianto dell'ordine</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <%=results[0].Impianto%>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div>
-                                    <h4 style="color: #ff5454;">Zona</h4>
-                                    <p class="mb-0">Zona dell'ordine</p>
-                                </div>
-                                <div class="d-flex flex-row">
-                                    <div class="align-self-center">
-                                        <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                            <%=results[0].Zona%>
-                                        </h2>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div>
+                            <h4 style="color: #ff5454;">Zona</h4>
+                            <p class="mb-0">Zona dell'ordine</p>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="align-self-center">
+                                <h2 class="h1 mb-0 info-text">
+                                    <%=results[0].Zona%>
+                                </h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1">
-                                <div class="d-flex flex-row">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Posizione</h4>
-                                        <p class="mb-0">Posizione dell'ordine</p>
-                                    </div>
-                                </div>
-                                <div class="align-self-center">
-                                    <h2 class="h1 mb-0 me-4" style="font-size: 30px;">
-                                        <%=results[0].Posizione%>
-                                    </h2>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h4 style="color: #ff5454;">Posizione</h4>
+                                <p class="mb-0">Posizione dell'ordine</p>
                             </div>
+                        </div>
+                        <div class="align-self-center">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].Posizione%>
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1 row"  style="text-align: center;">
-                                <div class="d-flex row mb-4">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Descrzione</h4>
-                                        <p class="mb-0">Descrzione dell'intervento</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <h2 class="h1 mb-0" style="font-size: 25px;"><%=results[0].DescrizioneLavori%></h2>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1 row info-paragraph">
+                        <div class="d-flex row mb-4">
+                            <div>
+                                <h4 style="color: #ff5454;">Descrzione</h4>
+                                <p class="mb-0">Descrzione dell'intervento</p>
                             </div>
+                        </div>
+                        <div class="row">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].DescrizioneLavori%>
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between p-md-1 row" style="text-align: center;">
-                                <div class="d-flex row mb-4">
-                                    <div>
-                                        <h4 style="color: #ff5454;">Lavori Eseguiti</h4>
-                                        <p class="mb-0">Descrzione dei lavori eseguiti</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <h2 class="h1 mb-0" style="font-size: 25px;"><%=results[0].DescrizioneLavori%></h2>
-                                </div>
+        </div>
+    </div>
+    <div class="row shrink-container">
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between p-md-1 row info-paragraph">
+                        <div class="d-flex row mb-4">
+                            <div>
+                                <h4 style="color: #ff5454;">Lavori Eseguiti</h4>
+                                <p class="mb-0">Descrzione dei lavori eseguiti</p>
                             </div>
+                        </div>
+                        <div class="row">
+                            <h2 class="h1 mb-0 info-text">
+                                <%=results[0].DescrizioneLavori%>
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+    </section>
     </div>
 </body>
 
