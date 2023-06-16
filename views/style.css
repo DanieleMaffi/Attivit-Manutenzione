@@ -10946,7 +10946,10 @@ textarea.form-control-lg {
 @media (min-width:320px)  { 
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
 }
-@media not screen and (min-width:480px) { 
+@media (min-width:480px)  { 
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+}
+@media not screen and (min-width:600px) { 
   /* smartphones, Android phones, landscape iPhone */ 
   .form-card {
     width: 98%;
@@ -10999,10 +11002,6 @@ textarea.form-control-lg {
   .card-table {
     margin-top: 80px ;
   }
-}
-  
-@media (min-width:600px)  { 
-  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
 }
 @media (min-width:801px)  { 
   /* tablet, landscape iPad, lo-res laptops ands desktops */ 
