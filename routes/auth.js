@@ -14,7 +14,7 @@ router.get('/forgotPassword', (req, res) => {
 }); 
 router.post('/forgotPassword/request', authController.forgotPassword);
 
-router.get('/changePassword', async (req, res) =>{
+router.get('/changePassword', authController.isLoggedIn, async (req, res) =>{
     let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
     res.render('passwordForm', {message: "", user: decodedToken['name']});
 });
