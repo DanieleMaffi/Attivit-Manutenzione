@@ -148,6 +148,12 @@ exports.forgotPassword = async (req, res) => {
     let email = req.body.email;
     let id = null
 
+    if (!email) {
+        return res.status(400).render('emailForm', {
+            message: 'Inserisci un indirizzo valido'
+        })
+    }
+
     //Check id the email exists
     let query = "SELECT * FROM tb_risorse WHERE Email = '" + email + "'";
 
