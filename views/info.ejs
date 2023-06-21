@@ -166,9 +166,11 @@
                                                     Man. guasto
                                                     <% } else if (results[0].Tipo==40) { %>
                                                         Eff. energia
-                                                        <% } else { %>
+                                                        <% } else if (results[0].Tipo==50) { %>
                                                             Ambiente
-                                                            <% } %>
+                                                            <% } else { %>
+                                                                Modifica impiantistica
+                                                                <% } %>
                                 </h2>
                             </div>
                         </div>
