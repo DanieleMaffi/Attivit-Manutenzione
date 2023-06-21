@@ -68,11 +68,9 @@ exports.sendForm = async (req, res) => {
         //fetches the varibales from the form submission
         let posizione = req.body.posizione
         let descrizione = req.body.descrizione
-        let fileType = req.file.mimetype
         let fileName = req.file.originalname
-        let encoding = req.file.encoding
-        let size = req.file.size
         let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+        let idOdl = null
 
         await sql.connect(config)
 
@@ -80,32 +78,32 @@ exports.sendForm = async (req, res) => {
 
         let query = `INSERT INTO tb_OdL (ID_Posizione, DescrizioneLavori, ID_Richiedente) OUTPUT INSERTED.ID VALUES ('${posizione}', '${descrizione}', '${decodedToken['id']}')`
 
-        await request.query(query, function (err, results) {
+        await request.query(query, async function (err, results) {
             console.log(err)
-            res.render('response', { id: results.recordset[0].ID })   //renders response page and outputs id of the database row that has just been input
+            let idOdl = results.recordset[0].ID
+            try {
+
+                let blobData = req.file.buffer;
+
+                // Create a SQL Server connection pool
+                const pool = await sql.connect(config);
+
+                console.log(req.file)
+
+                // Define the SQL query to insert the BLOB data
+                query = 'INSERT INTO tb_AllegatiOdL (data, ID_OdL, NomeFile) VALUES (@blobData, @idOdl, @fileName)';
+                request = pool.request()
+                request.input('blobData', sql.VarBinary, blobData)
+                request.input('idOdl', sql.BigInt, idOdl)
+                request.input('fileName', sql.NVarChar, fileName)
+
+                // Execute the SQL query
+                await request.query(query);
+                res.render('response', { id: results.recordset[0].ID })
+
+            } catch (err) {
+                console.log(err)
+            } //renders response page and outputs id of the database row that has just been input
         })
-        try {
-
-            let blobData = req.file.buffer;
-
-            // Create a SQL Server connection pool
-            const pool = await sql.connect(config);
-
-            console.log(req.file)
-
-            // Define the SQL query to insert the BLOB data
-            query = 'INSERT INTO my_table (data, nome, tipo, encoding, peso) VALUES (@blobData, @fileName, @fileType, @encoding, @peso)';
-            request = pool.request()
-            request.input('blobData', sql.VarBinary, blobData)
-            request.input('fileName', sql.NChar, fileName)
-            request.input('fileType', sql.NChar, fileType)
-            request.input('encoding', sql.NChar, encoding)
-            request.input('peso', sql.Int, size)
-
-            // Execute the SQL query
-            await request.query(query);
-        } catch (err) {
-            console.log(err)
-        }
     } catch (err) { console.log(err) }
 }
