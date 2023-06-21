@@ -10953,7 +10953,7 @@ textarea.form-control-lg {
 @media (min-width:480px)  { 
   /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
 }
-@media not screen and (min-width:800px) { 
+@media not screen and (min-width:1400px) { 
   /* smartphones, Android phones, landscape iPhone */ 
   .form-card {
     width: 98%;
@@ -11006,7 +11006,7 @@ textarea.form-control-lg {
     margin-top: 80px ;
   }
 }
-@media (min-width:801px)  { 
+@media (min-width:1001px)  { 
   /* tablet, landscape iPad, lo-res laptops ands desktops */ 
 }
 @media (min-width:1025px) { 

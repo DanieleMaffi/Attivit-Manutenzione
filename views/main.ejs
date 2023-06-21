@@ -28,317 +28,322 @@
 </nav>
 
 <body>
-    <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
-        <div class="card mx-auto card-table" style="width: 40rem;">
-            <div class="card-body">
-                <div class="container-fluid">
-                    <h3>Ordini pendenti</h3>
-                    <a href="#" id="reloadBtn" class="idLink">Aggiorna</a>
-                </div>
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Descrizione</th>
-                            <th scope="col">Stato</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(let i=0; i < odl.length; i++) { %>
+        <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
+            <div class="card mx-auto card-table" style="width: 40rem;">
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <h3>Ordini pendenti</h3>
+                        <a href="#" id="reloadBtn" class="idLink">Aggiorna</a>
+                    </div>
+                    <% if (odl.length !=0) { %>
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
                             <tr>
-                                <th scope="row">
-                                    <a class="link-body-emphasis idLink" href="/odlInfo/<%=odl[i].ID%>">
-                                        <%=odl[i].ID%>
-                                    </a>
-                                </th>
-                                <td>
-                                    <%=odl[i].DescrizioneLavori%>
-                                </td>
-                                <td>
-                                    <% if (odl[i].Stato==0) { %>
-                                        Sconosciuto
-                                        <% } else if (odl[i].Stato==10) { %>
-                                            Ricevuto
-                                            <% } else if (odl[i].Stato==20) { %>
-                                                In attesa di delibera
-                                                <% } else if (odl[i].Stato==30) { %>
-                                                    Approvato
-                                                    <% } else if (odl[i].Stato==40) { %>
-                                                        In attesa di materiali
-                                                        <% } else if (odl[i].Stato==50) { %>
-                                                            Programmato
-                                                            <% } else if (odl[i].Stato==60) { %>
-                                                                In corso...
-                                                                <% } else if (odl[i].Stato==90) { %>
-                                                                    Concluso
-                                                                    <% } else { %>
-                                                                        Annullato
-                                                                        <% } %>
-                                </td>
+                                <th scope="col">ID</th>
+                                <th scope="col">Descrizione</th>
+                                <th scope="col">Stato</th>
                             </tr>
-                            <% } %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <p class="newOrder center-con">Nuovo ordine</p>
-    <div class="center-con">
-        <div class="round">
-            <span class="drawSpace"></span>
-            <span class="drawSpace"></span>
-            <span class="drawSpace"></span>
-            <span class="drawSpace"></span>
-        </div>
-    </div>
-    <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
-        <div class="card mx-auto" style="width: 40rem;">
-            <div class="card-body">
-                <form action="/upload/sendForm" method="POST" id="usrform" enctype="multipart/form-data"e>
-                    <h4 class="mb-4">Inserire i dati</h4>
-                    <div class="mb-4">
-                        <label for="stabilimento" class="form-label">Stabilimento</label>
-                        <select class="form-control" name="stabilimento" id="stabilimento">
-                            <option value="none" selected disabled hidden>
-                                Seleziona uno stabilimento
-                            </option>
-                            <% for (var i=0; i < stabilimenti.length; i++) { %>
-                                <option value="<%=stabilimenti[i].ID%>">
-                                    <%=stabilimenti[i].Nome%>
-                                </option>
+                        </thead>
+                        <tbody>
+                            <% for(let i=0; i < odl.length; i++) { %>
+                                <tr>
+                                    <th scope="row">
+                                        <a class="link-body-emphasis idLink" href="/odlInfo/<%=odl[i].ID%>">
+                                            <%=odl[i].ID%>
+                                        </a>
+                                    </th>
+                                    <td>
+                                        <%=odl[i].DescrizioneLavori%>
+                                    </td>
+                                    <td>
+                                        <% if (odl[i].Stato==0) { %>
+                                            Sconosciuto
+                                            <% } else if (odl[i].Stato==10) { %>
+                                                Ricevuto
+                                                <% } else if (odl[i].Stato==20) { %>
+                                                    In attesa di delibera
+                                                    <% } else if (odl[i].Stato==30) { %>
+                                                        Approvato
+                                                        <% } else if (odl[i].Stato==40) { %>
+                                                            In attesa di materiali
+                                                            <% } else if (odl[i].Stato==50) { %>
+                                                                Programmato
+                                                                <% } else if (odl[i].Stato==60) { %>
+                                                                    In corso...
+                                                                    <% } else if (odl[i].Stato==90) { %>
+                                                                        Concluso
+                                                                        <% } else { %>
+                                                                            Annullato
+                                                                            <% } %>
+                                    </td>
+                                </tr>
                                 <% } %>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="reparto" class="form-label">Reparto</label>
-                        <select class="form-control" name="reparto" id="reparto">
-                            <option value="none" selected disabled hidden>
-                                Seleziona un reparto
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="impianto" class="form-label">Impianto</label>
-                        <select class="form-control" name="impianto" id="impianto">
-                            <option value="none" selected disabled hidden>
-                                Seleziona un impianto
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="zona" class="form-label">Zona</label>
-                        <select class="form-control" name="zona" id="zona">
-                            <option value="none" selected disabled hidden>
-                                Seleziona una zona
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="posizione" class="form-label">Posizione</label>
-                        <select class="form-control" name="posizione" id="posizione">
-                            <option value="none" selected disabled hidden>
-                                Seleziona una posizione
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label for="descrizione" class="form-label">Richiesta intervento</label>
-                        <textarea class="form-control" name="descrizione" cols="40" rows="5"></textarea>
-                        <!--<input class="form-control" type="text" name="descrizione" id="descrizione">-->
-                    </div>
-                    <div class="mb-4">
-                        <label for="allegato" class="form-label">Carica un allegato</label>
-                        <input type="file"
-                            accept=".png, .jpg, .pdf, image/*, .doc,.docx,.xml, .xls, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                            class="form-control" name="allegato" cols="40" rows="5">
-                        </input>
-                    </div>
-                    <button type="submit" id="submitBtn" class="btn btn-primary mt-1 mb-2" disabled>Invia</button>
-                </form>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <h4 style="text-align: center; font-weight: 400;">Nessun ordine associato</h4>
+                    <% } %>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
+        <p class="newOrder center-con">Nuovo ordine</p>
+        <div class="center-con">
+            <div class="round">
+                <span class="drawSpace"></span>
+                <span class="drawSpace"></span>
+                <span class="drawSpace"></span>
+                <span class="drawSpace"></span>
+            </div>
+        </div>
+            <div class="container my-5" style="display: flex; height: calc(100vh - 180px); align-items: center;">
+                <div class="card mx-auto" style="width: 40rem;">
+                    <div class="card-body">
+                        <form action="/upload/sendForm" method="POST" id="usrform" enctype="multipart/form-data" e>
+                            <h4 class="mb-4">Inserire i dati</h4>
+                            <div class="mb-4">
+                                <label for="stabilimento" class="form-label">Stabilimento</label>
+                                <select class="form-control" name="stabilimento" id="stabilimento">
+                                    <option value="none" selected disabled hidden>
+                                        Seleziona uno stabilimento
+                                    </option>
+                                    <% for (var i=0; i < stabilimenti.length; i++) { %>
+                                        <option value="<%=stabilimenti[i].ID%>">
+                                            <%=stabilimenti[i].Nome%>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="reparto" class="form-label">Reparto</label>
+                                <select class="form-control" name="reparto" id="reparto">
+                                    <option value="none" selected disabled hidden>
+                                        Seleziona un reparto
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="impianto" class="form-label">Impianto</label>
+                                <select class="form-control" name="impianto" id="impianto">
+                                    <option value="none" selected disabled hidden>
+                                        Seleziona un impianto
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="zona" class="form-label">Zona</label>
+                                <select class="form-control" name="zona" id="zona">
+                                    <option value="none" selected disabled hidden>
+                                        Seleziona una zona
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="posizione" class="form-label">Posizione</label>
+                                <select class="form-control" name="posizione" id="posizione">
+                                    <option value="none" selected disabled hidden>
+                                        Seleziona una posizione
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="descrizione" class="form-label">Richiesta intervento</label>
+                                <textarea class="form-control" name="descrizione" cols="40" rows="5"></textarea>
+                                <!--<input class="form-control" type="text" name="descrizione" id="descrizione">-->
+                            </div>
+                            <div class="mb-4">
+                                <label for="allegato" class="form-label">Carica un allegato</label>
+                                <input type="file"
+                                    accept=".png, .jpg, .pdf, image/*, .doc,.docx,.xml, .xls, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    class="form-control" name="allegato" cols="40" rows="5">
+                                </input>
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary mt-1 mb-2"
+                                disabled>Invia</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
 
-        //When select stabilimento is changed this function is called
-        document.getElementById('stabilimento').addEventListener('change', () => {
-            let stabilimento = document.getElementById('stabilimento')
-            let reparto = document.getElementById('reparto')
-            let impianto = document.getElementById('impianto')
-            let zona = document.getElementById('zona')
-            let posizione = document.getElementById('posizione')
+                //When select stabilimento is changed this function is called
+                document.getElementById('stabilimento').addEventListener('change', () => {
+                    let stabilimento = document.getElementById('stabilimento')
+                    let reparto = document.getElementById('reparto')
+                    let impianto = document.getElementById('impianto')
+                    let zona = document.getElementById('zona')
+                    let posizione = document.getElementById('posizione')
 
-            document.getElementById('submitBtn').disabled = true //disabòes the submit button when 'posizione' doesn't have a value set
+                    document.getElementById('submitBtn').disabled = true //disabòes the submit button when 'posizione' doesn't have a value set
 
-            reparto.options.length = 0 //deletes innerHTML of select
+                    reparto.options.length = 0 //deletes innerHTML of select
 
-            let option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona un reparto"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            reparto.appendChild(option)
+                    let option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona un reparto"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    reparto.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona un impianto"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            impianto.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona un impianto"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    impianto.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una zona"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            zona.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una zona"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    zona.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una posizione"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            posizione.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una posizione"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    posizione.appendChild(option)
 
-                <% for (let i = 0; i < reparti.length; i++) { %>
+                        <% for (let i = 0; i < reparti.length; i++) { %>
                 if (<%= reparti[i].ID_Stabilimento %> == stabilimento.value) {
-            let option = document.createElement("option");
-            option.value = <%= reparti[i].ID %>
-                option.text = "<%= reparti[i].Nome %>"
-            reparto.appendChild(option)
-        }
+                    let option = document.createElement("option");
+                    option.value = <%= reparti[i].ID %>
+                        option.text = "<%= reparti[i].Nome %>"
+                    reparto.appendChild(option)
+                }
             <% } %>
         })
 
-        document.getElementById('reparto').addEventListener('change', () => {
-            let reparto = document.getElementById('reparto')
-            let impianto = document.getElementById('impianto')
-            let zona = document.getElementById('zona')
-            let posizione = document.getElementById('posizione')
-            impianto.options.length = 0 //deletes innerHTML of select
+                document.getElementById('reparto').addEventListener('change', () => {
+                    let reparto = document.getElementById('reparto')
+                    let impianto = document.getElementById('impianto')
+                    let zona = document.getElementById('zona')
+                    let posizione = document.getElementById('posizione')
+                    impianto.options.length = 0 //deletes innerHTML of select
 
-            document.getElementById('submitBtn').disabled = true
+                    document.getElementById('submitBtn').disabled = true
 
-            let option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona un impianto"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            impianto.appendChild(option)
+                    let option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona un impianto"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    impianto.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una zona"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            zona.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una zona"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    zona.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una posizione"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            posizione.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una posizione"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    posizione.appendChild(option)
 
-                <% for (let i = 0; i < impianti.length; i++) { %>
+                        <% for (let i = 0; i < impianti.length; i++) { %>
                 if (<%= impianti[i].ID_Reparto %> == reparto.value) {
-            let option = document.createElement("option");
-            option.value = <%= impianti[i].ID %>
-                option.text = "<%= impianti[i].Nome %>"
-            impianto.appendChild(option)
-        }
+                    let option = document.createElement("option");
+                    option.value = <%= impianti[i].ID %>
+                        option.text = "<%= impianti[i].Nome %>"
+                    impianto.appendChild(option)
+                }
             <% } %>
         })
 
-        document.getElementById('impianto').addEventListener('change', () => {
-            let impianto = document.getElementById('impianto')
-            let zona = document.getElementById('zona')
-            let posizione = document.getElementById('posizione')
-            zona.options.length = 0 //deletes innerHTML of select
+                document.getElementById('impianto').addEventListener('change', () => {
+                    let impianto = document.getElementById('impianto')
+                    let zona = document.getElementById('zona')
+                    let posizione = document.getElementById('posizione')
+                    zona.options.length = 0 //deletes innerHTML of select
 
-            document.getElementById('submitBtn').disabled = true
+                    document.getElementById('submitBtn').disabled = true
 
-            let option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una zona"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            zona.appendChild(option)
+                    let option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una zona"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    zona.appendChild(option)
 
-            option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una posizione"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            posizione.appendChild(option)
+                    option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una posizione"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    posizione.appendChild(option)
 
-                <% for (let i = 0; i < zone.length; i++) { %>
+                        <% for (let i = 0; i < zone.length; i++) { %>
                 if (<%= zone[i].ID_Impianto %> == impianto.value) {
-            let option = document.createElement("option");
-            option.value = <%= zone[i].ID %>
-                option.text = "<%= zone[i].Nome %>"
-            zona.appendChild(option)
-        }
+                    let option = document.createElement("option");
+                    option.value = <%= zone[i].ID %>
+                        option.text = "<%= zone[i].Nome %>"
+                    zona.appendChild(option)
+                }
             <% } %>
         })
 
-        document.getElementById('zona').addEventListener('change', () => {
-            let zona = document.getElementById('zona')
-            let posizione = document.getElementById('posizione')
-            posizione.options.length = 0 //deletes innerHTML of select
+                document.getElementById('zona').addEventListener('change', () => {
+                    let zona = document.getElementById('zona')
+                    let posizione = document.getElementById('posizione')
+                    posizione.options.length = 0 //deletes innerHTML of select
 
-            document.getElementById('submitBtn').disabled = true
+                    document.getElementById('submitBtn').disabled = true
 
-            let option = document.createElement("option");
-            option.value = "none"
-            option.text = "Seleziona una posizione"
-            option.disabled = true
-            option.selected = true
-            option.hidden = true
-            posizione.appendChild(option)
+                    let option = document.createElement("option");
+                    option.value = "none"
+                    option.text = "Seleziona una posizione"
+                    option.disabled = true
+                    option.selected = true
+                    option.hidden = true
+                    posizione.appendChild(option)
 
-                <% for (let i = 0; i < posizioni.length; i++) { %>
+                        <% for (let i = 0; i < posizioni.length; i++) { %>
                 if (<%= posizioni[i].ID_Zona %> == zona.value) {
-            let option = document.createElement("option");
-            option.value = <%= posizioni[i].ID %>
-                option.text = "<%= posizioni[i].Nome %>"
-            posizione.appendChild(option)
-        }
+                    let option = document.createElement("option");
+                    option.value = <%= posizioni[i].ID %>
+                        option.text = "<%= posizioni[i].Nome %>"
+                    posizione.appendChild(option)
+                }
             <% } %>
         })
 
-        document.getElementById('posizione').addEventListener('change', () => {
-            document.getElementById('submitBtn').disabled = false
-        })
+                document.getElementById('posizione').addEventListener('change', () => {
+                    document.getElementById('submitBtn').disabled = false
+                })
 
-        //The function scrolls down the page
-        let scrollDown = () => {
-            window.scrollTo(0, document.body.scrollHeight);
-        }
+                //The function scrolls down the page
+                let scrollDown = () => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
 
-        let elements = document.getElementsByClassName("center-con")
+                let elements = document.getElementsByClassName("center-con")
 
-        //When an element with this class is clicked, the function is called
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].addEventListener('click', scrollDown, false);
-        }
+                //When an element with this class is clicked, the function is called
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].addEventListener('click', scrollDown, false);
+                }
 
-        //Reloads the page when btn is pressed
-        document.getElementById('reloadBtn').addEventListener('click', () => {
-            location.reload();
-        })
+                //Reloads the page when btn is pressed
+                document.getElementById('reloadBtn').addEventListener('click', () => {
+                    location.reload();
+                })
 
         //document.body.style.overflow = 'hidden';    //hides scrollbar
-    </script>
+            </script>
 </body>
 <!--
                  *       +
