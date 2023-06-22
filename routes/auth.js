@@ -26,7 +26,7 @@ router.get('/forgotPassword/request/response', (req, res) => {
         
             <!-- Bootstrap CSS -->
             <link rel="stylesheet" href="/style.css">
-        
+            <link rel="icon" type="images/x-icon" href="/minilogo.png" />
             <title>Response</title>
         </head>
         <body>
