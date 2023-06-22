@@ -14,6 +14,29 @@ router.get('/forgotPassword', (req, res) => {
 }); 
 router.post('/forgotPassword/request', authController.forgotPassword);
 
+router.get('/forgotPassword/request/response', (req, res) => {
+    res.status(200).send(
+        `<!doctype html>
+        <html lang="en" data-bs-theme="light">
+        
+        <head>
+            <!-- Required meta tags -->
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="/style.css">
+        
+            <title>Response</title>
+        </head>
+        <body>
+            <div style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column;">
+                <h1 class="display-4 row">Controlla la tua casella per visualizzare la nuova password</h1>
+            </div>
+        </html>`
+    );
+})
+
 router.get('/changePassword', authController.isLoggedIn, async (req, res) =>{
     let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
     res.render('passwordForm', {message: "", user: decodedToken['name']});

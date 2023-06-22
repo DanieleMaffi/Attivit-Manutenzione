@@ -105,7 +105,7 @@ exports.sendForm = async (req, res) => {
                     console.log(err)
                 } //renders response page and outputs id of the database row that has just been input
             }
-            res.render('response', { id: idOdl })
+            res.redirect('/upload/sendForm/response/' + idOdl)
         })
     } catch (err) { console.log(err) }
 }
