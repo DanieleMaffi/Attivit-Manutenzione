@@ -12,4 +12,6 @@ router.get('/odlInfo/:id', authController.isLoggedIn, infoController.getInfo)   
 
 router.get('/home', authController.isLoggedIn, formController.loadForm)  
 
+router.get('*', (req, res) => {res.status(404).render('notfound')})
+
 module.exports = router;
