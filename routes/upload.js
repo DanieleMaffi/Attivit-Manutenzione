@@ -7,6 +7,8 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
+router.get('/form', authController.isLoggedIn, formController.loadForm)
+
 router.post('/sendForm', authController.isLoggedIn, upload.single('allegato'), formController.sendForm);  //When a post request is made to /upload/sendForm the formController.sendForm function is called.
 
 router.get('/sendForm/response/:id', authController.isLoggedIn, (req, res) => {res.render('response', {id: req.params.id})})

@@ -32,28 +32,18 @@ function queryPromise(query) {
     });
 }
 
-exports.loadForm = async (req, res) => {
+exports.loadMain = async (req, res) => {
     let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
     //Queries all the info to send to the main.ejs page
     const queries = [
-        queryPromise("SELECT * FROM tb_stabilimenti"),
-        queryPromise("SELECT * FROM tb_reparti"),
-        queryPromise("SELECT * FROM tb_impianti"),
-        queryPromise("SELECT * FROM tb_zone"),
-        queryPromise("SELECT * FROM tb_posizioni"),
         queryPromise("SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id'])
     ];
 
     Promise.all(queries)
-        .then(([stabilimenti, reparti, impianti, zone, posizioni, odl]) => {
+        .then(([odl]) => {
 
             res.status(200).render("main", {    //All the variables are sent through a structure
-                stabilimenti: stabilimenti.recordset,
-                reparti: reparti.recordset,
-                impianti: impianti.recordset,
-                zone: zone.recordset,
-                posizioni: posizioni.recordset,
                 odl: odl.recordset,
                 user: decodedToken['name'],
             });
@@ -108,4 +98,29 @@ exports.sendForm = async (req, res) => {
             res.redirect('/upload/sendForm/response/' + idOdl)
         })
     } catch (err) { console.log(err) }
+}
+
+exports.loadForm = async (req, res) => {
+    let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+
+    //Queries all the info to send to the main.ejs page
+    const queries = [
+        queryPromise("SELECT * FROM tb_stabilimenti"),
+        queryPromise("SELECT * FROM tb_reparti"),
+        queryPromise("SELECT * FROM tb_impianti"),
+        queryPromise("SELECT * FROM tb_zone"),
+        queryPromise("SELECT * FROM tb_posizioni"),
+    ];
+
+    Promise.all(queries)
+        .then(([stabilimenti, reparti, impianti, zone, posizioni]) => {
+            res.status(200).render("form", {    //All the variables are sent through a structure
+                stabilimenti: stabilimenti.recordset,
+                reparti: reparti.recordset,
+                impianti: impianti.recordset,
+                zone: zone.recordset,
+                posizioni: posizioni.recordset,
+                user: decodedToken['name'],
+            });
+        })
 }

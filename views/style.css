@@ -11981,6 +11981,15 @@ fieldset:disabled .btn {
   animation: 1.5s ease-out 0s 1 slideInFromAbove;
 }
 
+.info-felx {
+  display: flex; 
+  justify-content: center;
+}
+
+.info-container {
+  width: 80vw;
+}
+
 /* ------------------------------ STYLING FOR OTHER DEVICES ----------------------------------*/
 @media (min-width:320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
@@ -12043,6 +12052,14 @@ fieldset:disabled .btn {
 
   .card-table {
     margin-top: 80px;
+  }
+
+  .info-felx {
+    display: block;
+  }
+  
+  .info-container {
+    width: 100%;
   }
 }
 
