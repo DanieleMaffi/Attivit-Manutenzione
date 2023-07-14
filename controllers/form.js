@@ -59,14 +59,17 @@ exports.sendForm = async (req, res) => {
         let posizione = req.body.posizione
         let descrizione = req.body.descrizione
         let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
-        let idOdl = null
 
-        await sql.connect(config)
+        // Create a SQL Server connection pool
+        const pool = await sql.connect(config);
 
-        let request = new sql.Request();
+        console.log(req.file)
 
-        let query = `INSERT INTO tb_OdL (ID_Posizione, DescrizioneLavori, ID_Richiedente) OUTPUT INSERTED.ID VALUES ('${posizione}', '${descrizione}', '${decodedToken['id']}')`
+        let query = `INSERT INTO tb_OdL (ID_Posizione, DescrizioneLavori, ID_Richiedente) OUTPUT INSERTED.ID VALUES (@posizione, @descrizione, '${decodedToken['id']}')`
 
+        let request = pool.request()
+        request.input('posizione', sql.BigInt, posizione)
+        request.input('descrizione', sql.NVarChar, descrizione)
 
         await request.query(query, async function (err, results) {
             console.log(err)

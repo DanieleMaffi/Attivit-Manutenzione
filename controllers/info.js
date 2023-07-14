@@ -20,13 +20,16 @@ var config = {
 
 exports.getInfo = async (req, res) => {
     try {
-        await sql.connect(config)
+        let id = req.params.id
 
-        let request = new sql.Request();
+        const pool = await sql.connect(config)
 
         let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
-        let query = `SELECT * FROM vw_OdL_WEB WHERE ID = ${req.params.id}`
+        let query = `SELECT * FROM vw_OdL_WEB WHERE ID = @id`
+
+        let request = pool.request();
+        request.input('id', sql.BigInt,id)
 
         await request.query(query, function (err, results) {
             console.log(results, err)

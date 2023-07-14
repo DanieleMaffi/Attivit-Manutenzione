@@ -5,6 +5,7 @@ const path = require("path")
 const ejs = require('ejs')
 const jwt = require('jsonwebtoken');
 let cookieParser = require('cookie-parser');
+const { request } = require("http");
 
 let results = null;
 let { email, password } = "";
@@ -41,16 +42,19 @@ exports.login = async (req, res) => {
 
         }
 
-        // connect to your database
-        await sql.connect(config)
-
-        // create Request object
-        var request = new sql.Request();
-
         password = await crypto.createHash('md5').update(password).digest('hex').toUpperCase()
 
+        // Create a SQL Server connection pool
+        const pool = await sql.connect(config);
+
+        let query = `SELECT * FROM tb_risorse WHERE Username = @username AND Password = @password`
+
+        let request = await pool.request()
+        request.input('username', sql.NVarChar, username)
+        request.input('password', sql.NVarChar, password)
+
         // query to the database and get the records
-        await request.query("SELECT * FROM tb_risorse WHERE Username = '" + username + "' AND Password = '" + password + "'", function (err, results) {
+        await request.query(query, function (err, results) {
             if (err) console.log(err)
 
             let dbPassword = results.recordset[0]?.Password;    //? is an optional chaining operator that checks if th value exists in the recordset before acceesing it
@@ -105,12 +109,6 @@ exports.logout = (req, res) => {
 
 //If both given passwords are equal then it updates the password in the database
 exports.changePassword = async (req, res) => {
-    // connect to your database
-    await sql.connect(config)
-
-    // create Request object
-    var request = new sql.Request();
-
     let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
     let firstPassword = req.body.firstPassword;
     let secondPassword = req.body.secondPassword;
@@ -131,7 +129,13 @@ exports.changePassword = async (req, res) => {
 
     let encodedPsw = await crypto.createHash('md5').update(firstPassword).digest('hex').toUpperCase()
 
-    let query = "UPDATE tb_risorse SET Password = '" + encodedPsw + "' WHERE ID = " + decodedToken['id']
+    // connect to your database
+    const pool = await sql.connect(config)
+
+    let query = "UPDATE tb_risorse SET Password = @password WHERE ID = "+ decodedToken['id']
+
+    let request = pool.request()
+    request.input('password', sql.NVarChar, encodedPsw)
 
     await request.query(query, function (err, results) {
         if (err) console.log(err)
@@ -141,10 +145,6 @@ exports.changePassword = async (req, res) => {
 
 //Checks if a user with the given email exists and if it does, returns a message and sends an email
 exports.forgotPassword = async (req, res) => {
-    await sql.connect(config)
-
-    var request = new sql.Request();
-
     let email = req.body.email;
     let id = null
 
@@ -154,8 +154,12 @@ exports.forgotPassword = async (req, res) => {
         })
     }
 
-    //Check id the email exists
-    let query = "SELECT * FROM tb_risorse WHERE Email = '" + email + "'";
+    const pool = await sql.connect(config)
+    //Check if the email exists
+    let query = "SELECT * FROM tb_risorse WHERE Email = @email";
+
+    let request = poll.request()
+    request.input('email', sql.NVarChar, email)
 
     await request.query(query, function (err, results) {
         if (err) console.log(err)
@@ -165,7 +169,11 @@ exports.forgotPassword = async (req, res) => {
             })
         } else {
             id = results.recordset[0]?.ID
-            query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES (" + id + ")";
+
+            query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES (@id)";
+
+            request = pool.request()
+            request.input('id', sql.BigInt, id)
 
             request.query(query, function (err, results) {
                 if (err) console.log(err)
