@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
 
                 //Closes the connection
                 pool.close().then(() => {console.log('Closed pool')})
-                return res.status(401).render(oneStepBack + 'views/login', {
+                return res.status(401).render('login', {
                     message: 'Username o password non corretti'
                 })
 
