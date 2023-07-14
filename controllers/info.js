@@ -18,8 +18,10 @@ var config = {
     }
 };
 
+//Gets all the info of an order thorugh the id givenin the URI
 exports.getInfo = async (req, res) => {
     try {
+        //Getting id from URI
         let id = req.params.id
 
         const pool = await sql.connect(config)
@@ -33,10 +35,14 @@ exports.getInfo = async (req, res) => {
 
         await request.query(query, function (err, results) {
             console.log(results, err)
-            if (results.recordset[0]?.Richiedente == decodedToken['id']) 
+            if (results.recordset[0]?.Richiedente == decodedToken['id'])    //Checks if the id stored in the order is the same as the user asking for it
                 res.render("info", { root: './views/', results: results.recordset, user: decodedToken['name']})
             else
                 res.send("Non hai accesso a questo ordine")
+
+            pool.close()
+                .then(() => {console.log('Closed pool')})
+                .catch((err) => {console.log(err)})
         })
     } catch (err) {console.log(err)}
 }

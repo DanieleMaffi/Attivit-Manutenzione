@@ -19,6 +19,7 @@ var config = {
     }
 };
 
+//A function taht creates a quesry promise
 function queryPromise(query) {
     return new Promise((resolve, reject) => {
         sql.query(query, (err, result) => {
@@ -28,26 +29,28 @@ function queryPromise(query) {
                 resolve(result);
             }
         });
-
     });
 }
 
+//Loads the main page according to the users
 exports.loadMain = async (req, res) => {
     let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
-    //Queries all the info to send to the main.ejs page
-    const queries = [
-        queryPromise("SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id'])
-    ];
+    //Querying all the orders associated with the user id in the token
+    const pool = await sql.connect(config)
+    let query = "SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id']
+    let request = pool.request()
 
-    Promise.all(queries)
-        .then(([odl]) => {
+    await request.query(query, function(err, odl) {
+        res.status(200).render("main", {    //All the variables are sent through a structure
+            odl: odl.recordset,
+            user: decodedToken['name'],
+        });
 
-            res.status(200).render("main", {    //All the variables are sent through a structure
-                odl: odl.recordset,
-                user: decodedToken['name'],
-            });
-        })
+        pool.close()
+            .then(() => {console.log('Closed pool')})
+            .catch((err) => {console.log(err)})
+    })
 }
 
 //Updates the tabel with a new row and returns the corresponding ID when a post request is made to /upload/sendForm
@@ -94,6 +97,10 @@ exports.sendForm = async (req, res) => {
                     // Execute the SQL query
                     await request.query(query);
 
+                    pool.close()
+                        .then(() => {console.log('Closed pool')})
+                        .catch((err) => {console.log(err)})
+
                 } catch (err) {
                     console.log(err)
                 } //renders response page and outputs id of the database row that has just been input
@@ -103,7 +110,10 @@ exports.sendForm = async (req, res) => {
     } catch (err) { console.log(err) }
 }
 
+//Loading the form fields
 exports.loadForm = async (req, res) => {
+    const pool = await sql.connect(config)
+
     let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
     //Queries all the info to send to the main.ejs page
@@ -126,4 +136,5 @@ exports.loadForm = async (req, res) => {
                 user: decodedToken['name'],
             });
         })
+        .then(() => {pool.close().then(() => {console.log('Closed pool')})})
 }

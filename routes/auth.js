@@ -32,6 +32,7 @@ router.get('/forgotPassword/request/response', (req, res) => {
         <body>
             <div style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column;">
                 <h1 class="display-4 row">Controlla la tua casella per visualizzare la nuova password</h1>
+                <a class="idLink" style="text-decoration: none;" href="/home">Torna al login</a></body>
             </div>
         </html>`
     );
