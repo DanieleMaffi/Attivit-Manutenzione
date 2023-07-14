@@ -4,7 +4,7 @@ Si può accdere al portale con l'ip '192.168.1.61' nel prorpio browser opure cli
 <br>
 
 ## Indice
-[Log in](#login)
+[Log in](#log-in)
 
 [Password dimeticata](#password-dimenticata)
 
@@ -60,7 +60,7 @@ La pagina principale è composta da due parti:
     - Cliccando sull'**id** verrà aperta una nuova pagina con ulteriori informazioni sull'ordine selezionato.
     
     - Cliccando **Aggiungi ordine** si verrà indirizzati al form per l'aggiunta di un ordine.
-    - 
+  
 <br>
 
 ### Informazioni sull'ordine
@@ -82,10 +82,13 @@ La pagina di cambio password si presenta con due cmapi da inserire: Va inserita 
 ### Aggiunta Ordine
 La pagine contiente diversi campi da completare con le informazioni sull'ordine:
 - Stabilimento
+  
 - Reparto
 - Impianto
 - Zona
 - Descrizione
 - Allegato (*facoltativo*)
+
+*Il form avrà la seguente struttura*:
 
 <img src="form.png"></img>
