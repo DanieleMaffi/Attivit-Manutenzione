@@ -64,7 +64,7 @@ La pagina principale è composta da due parti:
 <br>
 
 ### Informazioni sull'ordine
-Dopo aver premuto un **id** nella pagina principale, si verrà indirazziti a questa tabella contenente tutte le informazioni su quel detereminato ordine.
+Dopo aver premuto un **id** nella pagina principale, si verrà indirazziti a questa tabella contenente tutte le informazioni su quel determinato ordine.
 
 La pagina presenta dei campi con **Tipo di dato** e **valore** corrispettivo.
 
@@ -73,14 +73,14 @@ La pagina presenta dei campi con **Tipo di dato** e **valore** corrispettivo.
 <br>
 
 ### Cambio Password
-La pagina di cambio password si presenta con due cmapi da inserire: Va inserita la **nuova password** nel primo campo, dopodichè semplicemente ripetere l'inserimento nel secondo per assicurarsi che la password inserita sia stata scritta nel modo corretto.
+La pagina di cambio password si presenta con due campi da inserire: Va inserita la **nuova password** nel primo campo, dopodichè semplicemente ripetere l'inserimento nel secondo per assicurarsi che la password inserita sia stata scritta nel modo corretto.
 
 <img src="password.png"></img>
 
 <br>
 
 ### Aggiunta Ordine
-La pagine contiente diversi campi da completare con le informazioni sull'ordine:
+La pagina contiene diversi campi da completare con le informazioni sull'ordine:
 - Stabilimento
   
 - Reparto
