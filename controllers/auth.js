@@ -29,14 +29,14 @@ var config = {
 exports.login = async (req, res) => {
     try {
 
-        email = req.body.email;
+        username = req.body.username;
         password = req.body.password;
-        console.log(`Trying to log in as ${email} with password: ${password}`);
+        console.log(`Trying to log in as ${username} with password: ${password}`);
         let oneStepBack = path.join(__dirname, '../');
-        if (!email || !password) { //Check if email and password are empty
+        if (!username || !password) { //Check if email and password are empty
 
             return res.status(400).render(oneStepBack + "views/login", {    //Renders the login page with the error message sento as an ejs variable
-                message: 'Inserire email e password'
+                message: 'Inserire username e password'
             })
 
         }
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         password = await crypto.createHash('md5').update(password).digest('hex').toUpperCase()
 
         // query to the database and get the records
-        await request.query("SELECT * FROM tb_risorse WHERE Email = '" + email + "' AND Password = '" + password + "'", function (err, results) {
+        await request.query("SELECT * FROM tb_risorse WHERE Username = '" + username + "' AND Password = '" + password + "'", function (err, results) {
             if (err) console.log(err)
 
             let dbPassword = results.recordset[0]?.Password;    //? is an optional chaining operator that checks if th value exists in the recordset before acceesing it
@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
             if (results.recordset.length == 0 || !(password === dbPassword)) {   //Check if the password is correct
 
                 return res.status(401).render(oneStepBack + 'views/login', {
-                    message: 'Email o password non corretti'
+                    message: 'Username o password non corretti'
                 })
 
             } else {
