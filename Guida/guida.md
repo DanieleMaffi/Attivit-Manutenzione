@@ -1,5 +1,5 @@
 # Attivià Manutenzione  
-Si può accdere al portale con l'ip '192.168.1.61' nel prorpio browser opure cliccando [qui](http://192.168.1.61).
+Si può accedere al portale con l'ip '192.168.1.61' nel proprio browser oppure cliccando [qui](http://192.168.1.61).
 
 <br>
 
