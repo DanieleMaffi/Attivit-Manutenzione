@@ -37,7 +37,7 @@
                     <a href="#" id="reloadBtn" class="idLink">Aggiorna</a>
                 </div>
                 <% if (odl.length !=0) { %>
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="overflow: scroll;">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">ID</th>
@@ -53,9 +53,7 @@
                                             <%=odl[i].ID%>
                                         </a>
                                     </th>
-                                    <td class="capitalize">
-                                        <%=odl[i].DescrizioneLavori%>
-                                    </td>
+                                    <td class="capitalize" id="desc<%=i%>" style="max-width: 300px;"></td>
                                     <td>
                                         <% if (odl[i].Stato==0) { %>
                                             Sconosciuto
@@ -90,10 +88,16 @@
         </div>
     </div>
     <script>
-        //Reloads the page when btn is pressed
-        document.getElementById('reloadBtn').addEventListener('click', () => {
-            location.reload();
-        })
+        // This script is responsable for the description length int the table's column
+        // In the case the text is too long, it will make a substring with less characters
+        <% for(let i=0; i < odl.length; i++) { %>
+            let description = document.getElementById('desc<%=i%>')
+            let descriptionString = "<%=odl[i].DescrizioneLavori%>"
+            if (descriptionString.length > 100)
+                description.innerHTML = descriptionString.substring(0, 80) + "..."
+            else
+                description.innerHTML = descriptionString
+        <% } %>
     </script>
 </body>
 <!--
