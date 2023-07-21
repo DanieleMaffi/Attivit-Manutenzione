@@ -12010,6 +12010,12 @@ fieldset:disabled .btn {
     width: 98%;
   }
 
+  .shrink-card {
+    width: 98%;
+    height: 1px !important;
+    border: none;
+  }
+
   .avatar {
     display: none;
   }
