@@ -88,6 +88,11 @@
         </div>
     </div>
     <script>
+        //Reloads the page when btn is pressed
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+            location.reload();
+        })
+
         // This script is responsable for the description length int the table's column
         // In the case the text is too long, it will make a substring with less characters
         <% for(let i=0; i < odl.length; i++) { %>
