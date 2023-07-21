@@ -95,9 +95,11 @@
 
         // This script is responsable for the description length int the table's column
         // In the case the text is too long, it will make a substring with less characters
+        let description = document.getElementById('desc0')
+        let descriptionString = ""
         <% for(let i=0; i < odl.length; i++) { %>
-            let description = document.getElementById('desc<%=i%>')
-            let descriptionString = "<%=odl[i].DescrizioneLavori%>"
+            description = document.getElementById('desc<%=i%>')
+            descriptionString = `<%=odl[i].DescrizioneLavori%>`
             if (descriptionString.length > 100)
                 description.innerHTML = descriptionString.substring(0, 80) + "..."
             else
