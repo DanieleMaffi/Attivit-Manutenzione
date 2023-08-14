@@ -45,15 +45,3 @@ The design is built using the bootstrap framework and a little bit of simple cus
 - [x] Email from server side to change password
 - [ ] Possibilty to add attachments
 <br> <br> 
-
-```
-                 *       +
-           '                  |
-       ()    .-.,="``"=.    - o -        Made
-             '=/_       \      |             by
-          *   |  '=._    |                     D3nny
-               \     `=./`,        '             
-            .   '=.__.=' `='      *
-   +                         +
-        O      *        '       .
-```
