@@ -33,7 +33,10 @@
         <div class="card mx-auto shrink-card form-card" style="width: 40rem;">
             <div class="card-body">
                 <form action="/upload/sendForm" method="POST" id="usrform" enctype="multipart/form-data" e>
-                    <h4 class="mb-4">Inserire i dati</h4>
+                    <div style="display: flex; justify-content: space-between;">
+                        <h4 class="mb-4">Inserire i dati</h4>
+                        <a href="/home" class="idLink" style="position: relative; top: 5px;">Torna agli ordini pendenti</a>
+                    </div>
                     <div class="mb-4">
                         <label for="stabilimento" class="form-label">Stabilimento</label>
                         <select class="form-control" name="stabilimento" id="stabilimento">

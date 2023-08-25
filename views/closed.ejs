@@ -14,7 +14,7 @@
     style="border-bottom: 1mm ridge rgba(116, 116, 116, 0.6);">
     <div class="container-fluid">
         <img src="/logo.png" style="width: 8%; margin-top: 7px;" class="avatar" alt="user profile picture">
-        <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col" href="#">Attività
+        <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col" href="/home">Attività
             Manutenzione</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -35,8 +35,7 @@
                 <div class="container-fluid">
                     <h3>Ordini pendenti</h3>
                     <a href="#" id="reloadBtn" class="idLink" style="margin-right: 20px;">Aggiorna</a>
-                    <a class="idLink" href="/closed" style="margin-right: 20px;">Visualizza ordini conclusi</a>
-                    <a class="idLink" href="/upload/form">Aggiungi un ordine</a>
+                    <a class="idLink" href="/home">Torna agli ordini pendenti</a>
                 </div>
                 <% if (odl.length !=0) { %>
                     <table class="table table-hover" style="overflow: scroll;">
@@ -49,7 +48,7 @@
                         </thead>
                         <tbody>
                             <% for(let i=0; i < odl.length; i++) { %>
-                                <% if (odl[i].Stato!=90) { %>
+                                <% if (odl[i].Stato==90) { %>
                                     <tr>
                                         <th scope="row">
                                             <a class="link-body-emphasis idLink" href="/odlInfo/<%=odl[i].ID%>">
@@ -58,23 +57,7 @@
                                         </th>
                                         <td class="capitalize" id="desc<%=i%>" style="max-width: 300px;"></td>
                                         <td>
-                                            <% if (odl[i].Stato==0) { %>
-                                                Sconosciuto
-                                                <% } else if (odl[i].Stato==10) { %>
-                                                    Ricevuto
-                                                    <% } else if (odl[i].Stato==20) { %>
-                                                        In attesa di delibera
-                                                        <% } else if (odl[i].Stato==30) { %>
-                                                            Approvato
-                                                            <% } else if (odl[i].Stato==40) { %>
-                                                                In attesa di materiali
-                                                                <% } else if (odl[i].Stato==50) { %>
-                                                                    Programmato
-                                                                    <% } else if (odl[i].Stato==60) { %>
-                                                                        In corso...
-                                                                        <% } else { %>
-                                                                            Annullato
-                                                                            <% } %>
+                                            Concluso
                                         </td>
                                     </tr>
                                     <% } %>
@@ -83,11 +66,9 @@
                     </table>
                     <% } else { %>
                         <div style="display: flex; align-items: center; justify-content: center; height: 100px;">
-                            <h4 style="text-align: center; font-weight: 400;">Nessun ordine aperto</h4>
+                            <h4 style="text-align: center; font-weight: 400;">Nessun ordine concluso</h4>
                         </div>
                         <% } %>
-                            <!--<p style="text-align: center;"><a class="idLink"
-                                    href="/upload/form">Aggiungi un ordine</a></p>-->
             </div>
         </div>
     </div>

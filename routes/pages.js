@@ -11,6 +11,7 @@ router.get('/', (req, res) => {     //when the home page is requested the login 
 router.get('/odlInfo/:id', authController.isLoggedIn, infoController.getInfo)   //When odlInfo is requested the info.ejs file will be loaded and the id from URL is passed to the info.ejs file
 
 router.get('/home', authController.isLoggedIn, formController.loadMain)  
+router.get('/closed', authController.isLoggedIn, formController.loadClosed) 
 
 router.get('*', (req, res) => {res.status(404).render('notfound')})
 
