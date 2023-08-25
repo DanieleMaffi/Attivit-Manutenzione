@@ -34,43 +34,53 @@ function queryPromise(query) {
 
 //Loads the main page according to the users
 exports.loadMain = async (req, res) => {
-    let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+    try {
+        let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
-    //Querying all the orders associated with the user id in the token
-    const pool = await sql.connect(config)
-    let query = "SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id']
-    let request = pool.request()
+        //Querying all the orders associated with the user id in the token
+        const pool = await sql.connect(config)
+        let query = "SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id']
+        let request = pool.request()
 
-    await request.query(query, function(err, odl) {
-        res.status(200).render("main", {    //All the variables are sent through a structure
-            odl: odl.recordset,
-            user: decodedToken['name'],
-        });
+        await request.query(query, function (err, odl) {
+            res.status(200).render("main", {    //All the variables are sent through a structure
+                odl: odl.recordset,
+                user: decodedToken['name'],
+            });
 
-        pool.close()
-            .then(() => {console.log('Closed pool')})
-            .catch((err) => {console.log(err)})
-    })
+            pool.close()
+                .then(() => { console.log('Closed pool') })
+                .catch((err) => { console.log(err) })
+        })
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 //Loads the closed orders page according to the users
 exports.loadClosed = async (req, res) => {
-    let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+    try {
+        let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
-    const pool = await sql.connect(config)
-    let query = "SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id']
-    let request = pool.request()
+        const pool = await sql.connect(config)
+        let query = "SELECT * FROM vw_OdL_WEB WHERE Richiedente = " + decodedToken['id']
+        let request = pool.request()
 
-    await request.query(query, function(err, odl) {
-        res.status(200).render("closed", {    
-            odl: odl.recordset,
-            user: decodedToken['name'],
-        });
+        await request.query(query, function (err, odl) {
+            res.status(200).render("closed", {
+                odl: odl.recordset,
+                user: decodedToken['name'],
+            });
 
-        pool.close()
-            .then(() => {console.log('Closed pool')})
-            .catch((err) => {console.log(err)})
-    })
+            pool.close()
+                .then(() => { console.log('Closed pool') })
+                .catch((err) => { console.log(err) })
+        })
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 //Updates the tabel with a new row and returns the corresponding ID when a post request is made to /upload/sendForm
@@ -118,8 +128,8 @@ exports.sendForm = async (req, res) => {
                     await request.query(query);
 
                     pool.close()
-                        .then(() => {console.log('Closed pool')})
-                        .catch((err) => {console.log(err)})
+                        .then(() => { console.log('Closed pool') })
+                        .catch((err) => { console.log(err) })
 
                 } catch (err) {
                     console.log(err)
@@ -132,7 +142,8 @@ exports.sendForm = async (req, res) => {
 
 //Loading the form fields
 exports.loadForm = async (req, res) => {
-    const pool = await sql.connect(config)
+    try {
+        const pool = await sql.connect(config)
 
     let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
 
@@ -156,5 +167,7 @@ exports.loadForm = async (req, res) => {
                 user: decodedToken['name'],
             });
         })
-        .then(() => {pool.close().then(() => {console.log('Closed pool')})})
+        .then(() => { pool.close().then(() => { console.log('Closed pool') }) })
+    }
+    catch (err) { console.log(err) }
 }

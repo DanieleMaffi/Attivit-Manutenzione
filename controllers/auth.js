@@ -62,7 +62,7 @@ exports.login = async (req, res) => {
             if (results.recordset.length == 0 || !(password === dbPassword)) {   //Check if the password is correct
 
                 //Closes the connection
-                pool.close().then(() => {console.log('Closed pool')})
+                pool.close().then(() => { console.log('Closed pool') })
                 return res.status(401).render('login', {
                     message: 'Username o password non corretti'
                 })
@@ -74,8 +74,8 @@ exports.login = async (req, res) => {
                 console.log('Genereating token...');
 
                 //Creating the paylod to place in the token
-                let payload = { 
-                    id: results.recordset[0]?.ID, 
+                let payload = {
+                    id: results.recordset[0]?.ID,
                     name: results.recordset[0]?.Nome + ' ' + results.recordset[0]?.Cognome
                 }
 
@@ -90,11 +90,11 @@ exports.login = async (req, res) => {
                 res.status(201).redirect('/home');
 
                 pool.close()
-                    .then(() => {console.log('Closed pool')})
-                    .catch((err) => {console.log(err)})
+                    .then(() => { console.log('Closed pool') })
+                    .catch((err) => { console.log(err) })
             }
         })
-    } catch (err) { }
+    } catch (err) { console.log(err) }
 }
 
 //Check id the token is still valid
@@ -125,92 +125,102 @@ exports.logout = (req, res) => {
 
 //If both given passwords are equal then it updates the password in the database
 exports.changePassword = async (req, res) => {
-    let decodedToken =  await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
-    let firstPassword = req.body.firstPassword;
-    let secondPassword = req.body.secondPassword;
+    try {
+        let decodedToken = await promisify(jwt.verify)(req.cookies['token'], process.env.JWT_SECRET)
+        let firstPassword = req.body.firstPassword;
+        let secondPassword = req.body.secondPassword;
 
-    //If passwords don't match gives error message
-    if (firstPassword !== secondPassword) {
-        return res.status(400).render('passwordForm', {
-            message: 'Le password devono coincidere',
-            user: decodedToken['name']
+        //If passwords don't match gives error message
+        if (firstPassword !== secondPassword) {
+            return res.status(400).render('passwordForm', {
+                message: 'Le password devono coincidere',
+                user: decodedToken['name']
+            })
+        }
+
+        //Gives error message if one of the fileds is empty
+        if (!firstPassword && !secondPassword) {
+            return res.status(400).render('passwordForm', {
+                message: 'Inserisci una password valida',
+                user: decodedToken['name']
+            })
+        }
+
+        let encodedPsw = await crypto.createHash('md5').update(firstPassword).digest('hex').toUpperCase()
+
+        // connect to your database
+        const pool = await sql.connect(config)
+
+        let query = "UPDATE tb_risorse SET Password = @password WHERE ID = " + decodedToken['id']
+
+        let request = pool.request()
+        request.input('password', sql.NVarChar, encodedPsw)
+
+        await request.query(query, function (err, results) {
+            if (err) console.log(err)
+            res.status(201).redirect('/home');
+
+            pool.close()
+                .then(() => { console.log('Closed pool') })
+                .catch((err) => { console.log(err) })
         })
     }
-
-    //Gives error message if one of the fileds is empty
-    if (!firstPassword && !secondPassword) { 
-        return res.status(400).render('passwordForm', {
-            message: 'Inserisci una password valida',
-            user: decodedToken['name']
-        })
+    catch (err) {
+        console.log(err)
     }
-
-    let encodedPsw = await crypto.createHash('md5').update(firstPassword).digest('hex').toUpperCase()
-
-    // connect to your database
-    const pool = await sql.connect(config)
-
-    let query = "UPDATE tb_risorse SET Password = @password WHERE ID = "+ decodedToken['id']
-
-    let request = pool.request()
-    request.input('password', sql.NVarChar, encodedPsw)
-
-    await request.query(query, function (err, results) {
-        if (err) console.log(err)
-        res.status(201).redirect('/home');
-
-        pool.close()
-            .then(() => {console.log('Closed pool')})
-            .catch((err) => {console.log(err)})
-    })
 }
 
 //Checks if a user with the given email exists and if it does, returns a message and sends an email
 exports.forgotPassword = async (req, res) => {
-    let email = req.body.email;
-    let id = null
+    try {
+        let email = req.body.email;
+        let id = null
 
-    if (!email) {
-        return res.status(400).render('emailForm', {
-            message: 'Inserisci un indirizzo valido'
-        })
-    }
-
-    const pool = await sql.connect(config)
-    //Check if the email exists
-    let query = "SELECT * FROM tb_risorse WHERE Email = @email";
-
-    let request = pool.request()
-    request.input('email', sql.NVarChar, email)
-
-    await request.query(query, function (err, results) {
-        if (err) console.log(err)
-
-        //Gives an error if the email addres is not associated with an account
-        if (results.recordset.length == 0) {
-            pool.close()
-                .then(() => {console.log('Closed pool')})
-                .catch((err) => {console.log(err)})
-
-            return res.status(404).render('emailForm', {
-                message: 'Non esiste un account associato a questo indirizzo'
-            })
-        } else {
-            id = results.recordset[0]?.ID
-
-            query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES (@id)";
-
-            request = pool.request()
-            request.input('id', sql.BigInt, id)
-
-            request.query(query, function (err, results) {
-                if (err) console.log(err)
-                res.redirect('/auth/forgotPassword/request/response')
-
-                pool.close()
-                    .then(() => {console.log('Closed pool')})
-                    .catch((err) => {console.log(err)})
+        if (!email) {
+            return res.status(400).render('emailForm', {
+                message: 'Inserisci un indirizzo valido'
             })
         }
-    })
+
+        const pool = await sql.connect(config)
+        //Check if the email exists
+        let query = "SELECT * FROM tb_risorse WHERE Email = @email";
+
+        let request = pool.request()
+        request.input('email', sql.NVarChar, email)
+
+        await request.query(query, function (err, results) {
+            if (err) console.log(err)
+
+            //Gives an error if the email addres is not associated with an account
+            if (results.recordset.length == 0) {
+                pool.close()
+                    .then(() => { console.log('Closed pool') })
+                    .catch((err) => { console.log(err) })
+
+                return res.status(404).render('emailForm', {
+                    message: 'Non esiste un account associato a questo indirizzo'
+                })
+            } else {
+                id = results.recordset[0]?.ID
+
+                query = "INSERT INTO tb_cambioPassword (ID_Richiedente) VALUES (@id)";
+
+                request = pool.request()
+                request.input('id', sql.BigInt, id)
+
+                request.query(query, function (err, results) {
+                    if (err) console.log(err)
+                    res.redirect('/auth/forgotPassword/request/response')
+
+                    pool.close()
+                        .then(() => { console.log('Closed pool') })
+                        .catch((err) => { console.log(err) })
+                })
+            }
+        })
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
