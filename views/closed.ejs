@@ -14,7 +14,8 @@
     style="border-bottom: 1mm ridge rgba(116, 116, 116, 0.6);">
     <div class="container-fluid">
         <img src="/logo.png" style="width: 8%; margin-top: 7px;" class="avatar" alt="user profile picture">
-        <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col" href="/home">Attività
+        <a style="letter-spacing: 2px; margin-left: 25px; font-weight: 600;" class="navbar-brand col"
+            href="/home">Attività
             Manutenzione</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -83,12 +84,14 @@
         let description = document.getElementById('desc0')
         let descriptionString = ""
             <% for (let i = 0; i < odl.length; i++) { %>
-                description = document.getElementById('desc<%=i%>')
-                descriptionString = `<%=odl[i].DescrizioneLavori%>`
-                if (descriptionString.length > 100)
-                    description.innerHTML = descriptionString.substring(0, 80) + "..."
-                else
-                    description.innerHTML = descriptionString
+                <% if (odl[i].Stato == 90) { %>
+                    description = document.getElementById('desc<%=i%>')
+                    descriptionString = `<%=odl[i].DescrizioneLavori%>`
+                    if (descriptionString.length > 100)
+                        description.innerHTML = descriptionString.substring(0, 80) + "..."
+                    else
+                        description.innerHTML = descriptionString
+                            <% } %>
                         <% } %>
     </script>
 </body>

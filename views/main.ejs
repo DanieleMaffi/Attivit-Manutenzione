@@ -102,12 +102,14 @@
         let description = document.getElementById('desc0')
         let descriptionString = ""
             <% for (let i = 0; i < odl.length; i++) { %>
+                <% if (odl[i].Stato != 90) { %>
                 description = document.getElementById('desc<%=i%>')
                 descriptionString = `<%=odl[i].DescrizioneLavori%>`
                 if (descriptionString.length > 100)
                     description.innerHTML = descriptionString.substring(0, 80) + "..."
                 else
                     description.innerHTML = descriptionString
+                        <% } %>
                         <% } %>
     </script>
 </body>
