@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  mssql:
+    build:
+      context: .
+      dockerfile: dbDockerFile
+    image: man-db
+    networks:
+      - app
+    hostname: mssql
+    container_name: man-db
+
+  app:
+    build:
+      context: .
+      dockerfile: appDockerFile
+    image: man-app
+    networks:
+      - app
+    hostname: app
+    container_name: man-app
+    ports:
+      - 80:80
+
+networks:
+  app:

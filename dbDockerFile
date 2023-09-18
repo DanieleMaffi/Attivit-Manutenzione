@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/mssql/server:2022-latest
+ENV MSSQL_SA_PASSWORD=Secret122446
+ENV ACCEPT_EULA=Y
+
+COPY db.sql .
+CMD (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Recovery is complete." && /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Secret122446' -i db.sql && tail -f /dev/null
