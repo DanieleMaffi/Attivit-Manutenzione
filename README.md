@@ -43,5 +43,5 @@ The design is built using the bootstrap framework and a little bit of simple cus
 - [x] Access all info through token 
 - [x] Change Password feature
 - [x] Email from server side to change password
-- [ ] Possibilty to add attachments
+- [x] Possibilty to add attachments
 <br> <br> 
